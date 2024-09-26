@@ -1,8 +1,9 @@
-﻿--CREATE PROCEDURE [dbo].[GetDataInputTable]
+﻿--Gets the Data input details
 
---AS
---BEGIN
---    SELECT EmployeeId, FirstName, LastName, DepartmentId
---    FROM Employees
---    WHERE DepartmentId = @DepartmentId;
---END;
+CREATE PROCEDURE [App].[GetDataInputTable]
+
+AS
+BEGIN
+    SELECT Id, InputName, OwnerGroupId, ExtractionTypeId, DataTypeId, [Location], SheetsId
+    FROM App.DataInput
+END;

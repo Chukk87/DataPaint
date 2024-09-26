@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Data.SqlClient;
 using System.Data;
+using DataPaintLibrary.Classes.Input;
 
 
 namespace DataPaintLibrary.Services.Classes
@@ -110,6 +111,43 @@ namespace DataPaintLibrary.Services.Classes
             }
 
             return resultTable;
+        }
+
+
+        public async Task<List<OwnerGroup>> GetOwnerGroups()
+        {
+            var resultTable = new DataTable();
+            var ownerGroups = new List<OwnerGroup>();
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    // Open the connection
+                    await connection.OpenAsync();
+
+                    // Create a command to execute the stored procedure
+                    using (SqlCommand command = new SqlCommand("[App].[GetOwnerGroups]", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+
+                        // Create a data adapter to fill the DataTable with the result
+                        using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+                        {
+                            // Fill the DataTable with the result of the stored procedure
+                            adapter.Fill(resultTable);
+                        }
+                    }
+
+                    //Build class list
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("An error occurred: " + ex.Message);
+                }
+            }
+
+            return ownerGroups;
         }
     }
 }

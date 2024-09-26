@@ -35,7 +35,7 @@ namespace DataPaintLibrary.Services.Classes
         }
 
         /// <summary>
-        /// Collects all the data required for the required outpur reports
+        /// Collects all the data required for the required output reports
         /// </summary>
         private void DataCollection()
         {

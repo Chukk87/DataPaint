@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace DataPaintLibrary.Classes.Input
 {
-    class OwnerGroup
+    public class OwnerGroup
     {
-        int Id { get; set; }
-        string Name { get; set; }
-        List<string> ContactEmail { get; set; }
-        int PhoneNumber { get; set; }
-
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string ContactEmail { get; set; }
+        public string PhoneNumber { get; set; }
     }
 }

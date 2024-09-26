@@ -8,9 +8,9 @@ namespace DataPaintLibrary.Enums
 {
     public enum ExtractionType
     {
-        Api,
-        Excel,
-        TextTab,
-        TextDelimiter
+        Api,            //1
+        Excel,          //2
+        TextTab,        //3
+        TextDelimiter   //4
     }
 }
