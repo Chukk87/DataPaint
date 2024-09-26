@@ -7,11 +7,12 @@ using System.Threading.Tasks;
 using Microsoft.Data.SqlClient;
 using System.Data;
 using DataPaintLibrary.Classes.Input;
+using DataPaintLibrary.Services.Interfaces;
 
 
 namespace DataPaintLibrary.Services.Classes
 {
-    class SqlService
+    public class SqlService : ISqlService
     {
         private static string connectionString = "Data Source=your_server;Initial Catalog=Localhost;Integrated Security=True";
 
@@ -114,10 +115,9 @@ namespace DataPaintLibrary.Services.Classes
         }
 
 
-        public async Task<List<OwnerGroup>> GetOwnerGroups()
+        public async Task<DataTable> GetOwnerGroups()
         {
             var resultTable = new DataTable();
-            var ownerGroups = new List<OwnerGroup>();
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -147,7 +147,7 @@ namespace DataPaintLibrary.Services.Classes
                 }
             }
 
-            return ownerGroups;
+            return resultTable;
         }
     }
 }

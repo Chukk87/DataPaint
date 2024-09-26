@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace DataPaintLibrary.Classes.Input
+namespace DataPaintLibrary.Classes
 {
     public class OwnerGroup
     {

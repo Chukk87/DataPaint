@@ -10,7 +10,7 @@ namespace DataPaintLibrary.Classes
         public string Name { get; set;}
         public int OwnerGroupId { get; set; }
         public ExtractionType ExtractionType { get; set; }
-        public DataType DataType { get; set; }
+        public DataType Type { get; set; }
         public string Location { get; set; }
         public DataSet ExcelDataSet { get; set; }
         public List<SheetInput> Sheets { get; set; } = new List<SheetInput>();

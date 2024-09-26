@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using DataPaintLibrary.Classes.Input;
 using System.Data;
+using DataPaintLibrary.Classes;
 
 namespace DataPaintLibrary.Services.Interfaces
 {
     public interface IClassBuilderService
     {
         List<OwnerGroup> GroupOwnerClassListBuilder(DataTable Table);
+        List<DataInput> DataInputClassListBuilder(DataTable InputDataTable, DataTable InputSheetTable);
     }
 }

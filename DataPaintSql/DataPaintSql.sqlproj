@@ -67,5 +67,9 @@
     <Build Include="Schemas\App.sql" />
     <Build Include="StoredProcedures\CreateOwnerGroup.sql" />
     <Build Include="StoredProcedures\DeleteOwnerGroup.sql" />
+    <Build Include="Tables\DataInput.sql" />
+    <Build Include="Tables\SheetInput.sql" />
+    <Build Include="Tables\SheetInputParameters.sql" />
+    <Build Include="Tables\SheetInputRecord.sql" />
   </ItemGroup>
 </Project>
