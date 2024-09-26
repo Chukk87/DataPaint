@@ -1,19 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DataPaintLibrary.Classes
+﻿namespace DataPaintLibrary.Classes
 {
-    class SecurityParameters
+    public class SecurityParameters
     {
-        int Id;
-        bool AuthorisationToView;
-        int AuthorisationViewGroup;
-        bool AuthorisationToRun;
-        int AuthorisationRunGroup;
-        bool AuthorisationToChange;
-        int AuthorisationChangeGroup;
+        public int Id { get; set; }
+        public bool AuthorisationToView { get; set; }
+        public int AuthorisationViewGroup { get; set; }
+        public bool AuthorisationToRun { get; set; }
+        public int AuthorisationRunGroup { get; set; }
+        public bool AuthorisationToChange { get; set; }
+        public int AuthorisationChangeGroup { get; set; }
+
+        public SecurityParameters(int id, bool authorisationToView, int authorisationViewGroup,
+                                  bool authorisationToRun, int authorisationRunGroup,
+                                  bool authorisationToChange, int authorisationChangeGroup)
+        {
+            Id = id;
+            AuthorisationToView = authorisationToView;
+            AuthorisationViewGroup = authorisationViewGroup;
+            AuthorisationToRun = authorisationToRun;
+            AuthorisationRunGroup = authorisationRunGroup;
+            AuthorisationToChange = authorisationToChange;
+            AuthorisationChangeGroup = authorisationChangeGroup;
+        }
     }
 }

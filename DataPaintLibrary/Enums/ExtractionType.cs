@@ -11,6 +11,7 @@ namespace DataPaintLibrary.Enums
         Api,            //1
         Excel,          //2
         TextTab,        //3
-        TextDelimiter   //4
+        TextDelimiter,  //4
+        CSV             //5
     }
 }

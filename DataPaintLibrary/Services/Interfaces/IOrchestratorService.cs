@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using DataPaintLibrary.Classes;
 
 namespace DataPaintLibrary.Services.Interfaces
 {
-    class IOrchestratorService
+    public interface IOrchestratorService
     {
+        /// <summary>
+        /// Runs the orchestrator service for all DataInput items; collects data, formats data, and outputs data.
+        /// </summary>
+        /// <param name="dataInputs">The list of DataInput objects to process.</param>
+        void Run(List<DataInput> dataInputs);
     }
 }

@@ -20,8 +20,7 @@ namespace DataPaintLibrary
             //Test Data
             List<DataInput> dataList = TestData();
 
-            OrchestratorService _orchestratorService = new OrchestratorService();
-            _orchestratorService.Run(dataList);
+            //_orchestratorService.Run(dataList);
 
 
 
@@ -39,48 +38,21 @@ namespace DataPaintLibrary
         private static List<DataInput> TestData()
         {
             var dataList = new List<DataInput>();
-            var data = new DataInput()
-            {
-                ExtractionType = Enums.ExtractionType.Excel,
-                Location = @"C:\Users\craig\Desktop\Spreadsheets\Level Push CN.xlsx"
-            };
 
-            var sheet = new SheetInput()
-            {
-                SheetName = "Levels",
-                IncludeHeader = true,
-                StartRow = 10,
-                EndRow = 17,
-                StartColumn = 1,
-                EndColumn = 12
-            };
+            // Create a new instance of DataInput with all required properties
+            var data = new DataInput(1, "Test Data Input", 1, Enums.ExtractionType.Excel, Enums.DataType.Dynamic, 
+                                    @"C:\Users\craig\Desktop\Spreadsheets\Level Push CN.xlsx");
 
-            data.Sheets.Add(sheet);
+            // Add sheets to the data input using the constructor
+            data.Sheets.Add(new SheetInput("Levels", true, 10, 17, 1, 12));
 
-            sheet = new SheetInput()
-            {
-                SheetName = "Days",
-                IncludeHeader = false,
-                StartRow = 4,
-                EndRow = 10,
-                StartColumn = 2,
-                EndColumn = 7
-            };
+            data.Sheets.Add(new SheetInput("Days", false, 4, 10, 2, 7));
 
-            data.Sheets.Add(sheet);
+            data.Sheets.Add(new SheetInput("DayType", true, 1, 7, 1, 2));
 
-            sheet = new SheetInput()
-            {
-                SheetName = "DayType",
-                IncludeHeader = true,
-                StartRow = 1,
-                EndRow = 7,
-                StartColumn = 1,
-                EndColumn = 2
-            };
-
-            data.Sheets.Add(sheet);
+            // Add the populated DataInput to the list
             dataList.Add(data);
+
             return dataList;
         }
     }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using DataPaintLibrary.Classes.Input;
 using System.Data;
 using DataPaintLibrary.Services.Interfaces;
 using DataPaintLibrary.Classes;
@@ -11,65 +10,68 @@ namespace DataPaintLibrary.Services.Classes
 {
     public class ClassBuilderService : IClassBuilderService
     {
-        public List<OwnerGroup> GroupOwnerClassListBuilder (DataTable Table)
+        public List<OwnerGroup> BuildOwnerGroups(DataTable table)
         {
-            var GroupOwnerList = new List<OwnerGroup>();
+            var groupOwnerList = new List<OwnerGroup>();
 
-            foreach(DataRow dr in Table.AsEnumerable())
+            foreach (DataRow dr in table.AsEnumerable())
             {
-                var ownerGroup = new OwnerGroup()
-                {
-                    Id = Convert.ToInt32(dr["Id"]),
-                    Name = Convert.ToString(dr["GroupName"]),
-                    ContactEmail = Convert.ToString(dr["ContactEmail"]),
-                    PhoneNumber = Convert.ToString(dr["PhoneNumber"])
-                };
+                var ownerGroup = new OwnerGroup(
+                    dr.Field<int?>("Id") ?? 0, // Id
+                    dr.Field<string>("GroupName") ?? string.Empty, // Name
+                    dr.Field<string>("ContactEmail"), // ContactEmail
+                    dr.Field<string>("PhoneNumber")  // PhoneNumber
+                );
 
-                GroupOwnerList.Add(ownerGroup);
+                groupOwnerList.Add(ownerGroup);
             }
 
-            return GroupOwnerList;
+            return groupOwnerList;
         }
 
-        public List<DataInput> DataInputClassListBuilder (DataTable InputDataTable, DataTable InputSheetTable)
+        public List<DataInput> BuildDataInputs(DataTable inputDataTable, DataTable inputSheetTable)
         {
-            var DataInputList = new List<DataInput>();
+            var dataInputList = new List<DataInput>();
 
-            foreach (DataRow idt in InputDataTable.AsEnumerable())
+            // Group inputSheetTable by DataInputId to avoid repeatedly scanning it
+            var sheetGroups = inputSheetTable.AsEnumerable()
+                                             .GroupBy(row => row.Field<int>("DataInputId"))
+                                             .ToDictionary(g => g.Key, g => g.ToList());
+
+            foreach (DataRow idt in inputDataTable.AsEnumerable())
             {
-                var dataInput = new DataInput()
-                {
-                    Id = Convert.ToInt32(idt["Id"]),
-                    Name = Convert.ToString(idt["InputName"]),
-                    OwnerGroupId = Convert.ToInt32(idt["OwnerGroupId"]),
-                    ExtractionType = (ExtractionType)Convert.ToInt32(idt["ExtractionTypeId"]),
-                    Type = (DataType)Convert.ToInt32(idt["DataTypeId"]),
-                    Location = Convert.ToString(idt["Location"])
-                };
+                var dataInput = new DataInput(
+                    id: idt.Field<int>("Id"),
+                    name: idt.Field<string>("InputName") ?? string.Empty,
+                    ownerGroupId: idt.Field<int>("OwnerGroupId"),
+                    extractionType: (ExtractionType)idt.Field<int>("ExtractionTypeId"),
+                    type: (DataType)idt.Field<int>("DataTypeId"),
+                    location: idt.Field<string>("Location") ?? string.Empty
+                );
 
-                var filterInputSheetTable = InputSheetTable.AsEnumerable()
-                            .Where(row => row.Field<int>("DataInputId") == dataInput.Id);
-                
-                //Now need to build the sheets from a data table
-                foreach (DataRow ist in filterInputSheetTable.AsEnumerable())
+                // Initialize the Sheets list
+                if (sheetGroups.TryGetValue(dataInput.Id, out var filteredSheets))
                 {
-                    var sheet = new SheetInput()
+                    foreach (var ist in filteredSheets)
                     {
-                        SheetName = Convert.ToString(ist["SheetName"]),
-                        IncludeHeader = Convert.ToBoolean(ist["IncludeHeader"]),
-                        StartRow = Convert.ToInt32(idt["StartRow"]),
-                        EndRow = Convert.ToInt32(idt["EndRow"]),
-                        StartColumn = Convert.ToInt32(idt["StartColumn"]),
-                        EndColumn = Convert.ToInt32(idt["EndColumn"])
-                    };
+                        var sheet = new SheetInput(
+                            sheetName: ist.Field<string>("SheetName") ?? string.Empty,
+                            includeHeader: ist.Field<bool?>("IncludeHeader") ?? false,
+                            startRow: ist.Field<int>("StartRow"),
+                            endRow: ist.Field<int>("EndRow"),
+                            startColumn: ist.Field<int>("StartColumn"),
+                            endColumn: ist.Field<int>("EndColumn")
+                        );
 
-                    dataInput.Sheets.Add(sheet);
+                        // Add the sheet to the DataInput's Sheets collection
+                        dataInput.Sheets.Add(sheet);
+                    }
                 }
 
-                DataInputList.Add(dataInput);
+                dataInputList.Add(dataInput);
             }
 
-            return DataInputList;
+            return dataInputList;
         }
     }
 }
