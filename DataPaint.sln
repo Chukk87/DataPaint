@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataPaintLibrary", "DataPaintLibrary\DataPaintLibrary.csproj", "{BA979EFC-3B54-49F5-B656-D86BF2BBBAF8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataPaintLibrary", "DataPaintLibrary\DataPaintLibrary.csproj", "{BA979EFC-3B54-49F5-B656-D86BF2BBBAF8}"
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "DataPaintSql", "DataPaintSql\DataPaintSql.sqlproj", "{D7AEAC12-5A1C-46FD-A5D4-15A6914364FE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataPaintLibraryTests", "DataPaintLibraryTests\DataPaintLibraryTests.csproj", "{A1B6166C-8857-4CA1-8D85-9A7E2B53903A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataPaintLibraryTests", "DataPaintLibraryTests\DataPaintLibraryTests.csproj", "{A1B6166C-8857-4CA1-8D85-9A7E2B53903A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataPaintDesktop", "DataPaintDesktop\DataPaintDesktop.csproj", "{30B28407-6DCC-40D9-88C3-671B01E1BB1E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,6 +31,10 @@ Global
 		{A1B6166C-8857-4CA1-8D85-9A7E2B53903A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A1B6166C-8857-4CA1-8D85-9A7E2B53903A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A1B6166C-8857-4CA1-8D85-9A7E2B53903A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30B28407-6DCC-40D9-88C3-671B01E1BB1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30B28407-6DCC-40D9-88C3-671B01E1BB1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30B28407-6DCC-40D9-88C3-671B01E1BB1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30B28407-6DCC-40D9-88C3-671B01E1BB1E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
