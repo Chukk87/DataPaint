@@ -9,5 +9,6 @@ namespace DataPaintLibrary.Classes
         public string ObjectSource { get; set; }
         public Exception ExceptionDetail { get; set; } 
         public string OtherDetail { get; set; }
+        public DateTime Timestamp { get; set; } = DateTime.UtcNow;
     }
 }

@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dbo].[SheetInput]
+﻿CREATE TABLE [App].[SheetInput]
 (
 	[DataInputId] INT,
 	[SheetName] NVARCHAR(100),

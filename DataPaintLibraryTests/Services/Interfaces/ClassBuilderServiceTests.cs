@@ -2,10 +2,11 @@
 using System.Data;
 using DataPaintLibrary.Classes;
 using DataPaintLibrary.Services.Interfaces;
+using DataPaintLibrary.Enums;
 using Moq;
 using Xunit;
 
-namespace DataPaintLibrary.Tests.Services
+namespace DataPaintLibraryTests.Services.Interfaces
 {
     public class ClassBuilderServiceTests
     {
@@ -76,8 +77,8 @@ namespace DataPaintLibrary.Tests.Services
 
             var expectedDataInputs = new List<DataInput>
             {
-                new DataInput(1, "Input A", 1, Enums.ExtractionType.Excel, Enums.DataType.Dynamic, @"C:\Data\InputA.xlsx"),
-                new DataInput(2, "Input B", 1, Enums.ExtractionType.Excel, Enums.DataType.Static, @"C:\Data\InputB.xlsx")
+                new DataInput(1, "Input A", 1, ExtractionType.Excel, DataType.Dynamic, @"C:\Data\InputA.xlsx"),
+                new DataInput(2, "Input B", 1, ExtractionType.Excel, DataType.Static, @"C:\Data\InputB.xlsx")
             };
 
             // Adding SheetInput to DataInput using the public Add method

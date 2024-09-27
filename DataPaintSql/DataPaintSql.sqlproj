@@ -71,5 +71,7 @@
     <Build Include="Tables\SheetInput.sql" />
     <Build Include="Tables\SheetInputParameters.sql" />
     <Build Include="Tables\SheetInputRecord.sql" />
+    <Build Include="Tables\User.sql" />
+    <Build Include="TestSetup.sql" />
   </ItemGroup>
 </Project>
