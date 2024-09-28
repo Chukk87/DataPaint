@@ -10,6 +10,26 @@ namespace DataPaintLibrary.Services.Classes
 {
     public class ClassBuilderService : IClassBuilderService
     {
+        public List<User> BuildUserList(DataTable userTable)
+        {
+            var userList = new List<User>();
+
+            foreach (DataRow dr in userTable.AsEnumerable())
+            {
+                var user = new User(
+                    dr.Field<Guid>("Id"),
+                    dr.Field<string>("UserName"),
+                    dr.Field<string>("Name"),
+                    dr.Field<string>("LastName"),
+                    dr.Field<string>("Email")
+                    );
+
+                userList.Add(user);
+            }
+
+            return userList;
+        }
+
         public List<OwnerGroup> BuildOwnerGroups(DataTable table)
         {
             var groupOwnerList = new List<OwnerGroup>();

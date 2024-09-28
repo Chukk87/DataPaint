@@ -73,5 +73,6 @@
     <Build Include="Tables\SheetInputRecord.sql" />
     <Build Include="Tables\User.sql" />
     <Build Include="TestSetup.sql" />
+    <Build Include="StoredProcedures\GetUsers.sql" />
   </ItemGroup>
 </Project>

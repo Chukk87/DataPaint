@@ -1,17 +1,30 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataPaintLibrary.Services.Classes
 {
     public class User
     {
-        int Id { get; set; }
-        string Username { get; set; }
-        string FirstName { get; set; }
-        string Surname { get; set; }
-        string Email { get; set; }
+        public Guid Id { get; set; }
+        public string Username { get; set; }
+        public string FirstName { get; set; }
+        public string Surname { get; set; }
+        public string Email { get; set; }
+
+        public User(string username, string firstName, string surname, string email)
+        {
+            Username = username;
+            FirstName = firstName;
+            Surname = surname;
+            Email = email;
+        }
+
+        public User(Guid id, string username, string firstName, string surname, string email)
+        {
+            Id = id;
+            Username = username;
+            FirstName = firstName;
+            Surname = surname;
+            Email = email;
+        }
     }
 }

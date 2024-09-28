@@ -1,11 +1,19 @@
 ﻿using System.Collections.Generic;
 using System.Data;
 using DataPaintLibrary.Classes;
+using DataPaintLibrary.Services.Classes;
 
 namespace DataPaintLibrary.Services.Interfaces
 {
     public interface IClassBuilderService
     {
+        /// <summary>
+        /// Builds a list of Users from a DataTable
+        /// </summary>
+        /// <param name="userTable"></param>
+        /// <returns></returns>
+        List<User> BuildUserList(DataTable userTable);
+
         /// <summary>
         /// Builds a list of OwnerGroup objects from a DataTable.
         /// </summary>

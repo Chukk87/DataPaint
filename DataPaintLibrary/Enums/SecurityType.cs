@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace DataPaintLibrary.Enums
 {
-    public enum DataType
+    public enum SecurityType
     {
-        Static = 0,
-        Dynamic = 1
+        None = 0,
+        GroupOnly = 1
     }
 }

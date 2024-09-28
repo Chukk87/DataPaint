@@ -10,6 +10,7 @@ namespace DataPaintLibrary.Services.Classes
         private readonly ISqlService _sqlService;
         private readonly IClassBuilderService _classBuilderService;
 
+        private List<User> _users = new List<User>();
         private List<OwnerGroup> _ownerGroups = new List<OwnerGroup>();
         private List<DataInput> _dataInputs = new List<DataInput>();
 
@@ -18,6 +19,19 @@ namespace DataPaintLibrary.Services.Classes
             _sqlService = sqlService;
             _classBuilderService = classBuilderService;
         }
+
+        /// <summary>
+        /// Retrieves all users from the data source
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<User>> GetAllUsers()
+        {
+            var users = await _sqlService.GetUsers();
+            _users = _classBuilderService.BuildUserList(users);
+
+            return _users;
+        }
+
 
         /// <summary>
         /// Retrieves all owner groups from the data source.

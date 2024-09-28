@@ -5,6 +5,7 @@ namespace DataPaintLibrary.Services.Interfaces
 {
     public interface ISqlService
     {
+        Task<DataTable> GetUsers();
         Task<DataTable> GetOwnerGroups();
         Task<DataTable> GetSqlDataInputTable();
         Task<DataTable> GetSqlSheetInputTable();

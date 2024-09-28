@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DataPaintLibrary.Enums
+﻿namespace DataPaintLibrary.Enums
 {
     public enum ExtractionType
     {
-        Api,            //1
-        Excel,          //2
-        TextTab,        //3
-        TextDelimiter,  //4
-        CSV             //5
+        Api = 0,
+        Excel = 1,
+        TextTab = 2,
+        TextDelimiter = 3,
+        CSV = 4
     }
 }

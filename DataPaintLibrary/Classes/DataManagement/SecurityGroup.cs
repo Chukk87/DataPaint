@@ -6,7 +6,7 @@ namespace DataPaintLibrary.Classes.Input
     {
         public int Id { get; set; }
         public string GroupName { get; set; }
-        public List<int> Authorisers { get; set; }
+        public List<int> Admins { get; set; }
         public List<int> Users { get; set; }
         public SecurityParameters Parameters { get; set; }
 
@@ -14,7 +14,7 @@ namespace DataPaintLibrary.Classes.Input
         {
             Id = id;
             GroupName = groupName;
-            Authorisers = authorisers ?? new List<int>();
+            Admins = authorisers ?? new List<int>();
             Users = users ?? new List<int>();
             Parameters = parameters;
         }

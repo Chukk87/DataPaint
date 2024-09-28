@@ -4,6 +4,7 @@ using Microsoft.Data.SqlClient;
 using System.Data;
 using DataPaintLibrary.Services.Interfaces;
 using System.Reflection;
+using System.Collections.Generic;
 
 namespace DataPaintLibrary.Services.Classes
 {
@@ -15,6 +16,11 @@ namespace DataPaintLibrary.Services.Classes
         public SqlService(ILoggerService loggerService)
         {
             _loggerService = loggerService;
+        }
+
+        public async Task<DataTable> GetUsers()
+        {
+            return await ExecuteQueryAsync("App.GetUsers");
         }
 
         public async Task<DataTable> GetSqlSheetInputTable()
