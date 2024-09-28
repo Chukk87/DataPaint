@@ -1,0 +1,45 @@
+﻿using System;
+using System.Windows.Forms;
+using DataPaintLibrary.Classes;
+using DataPaintLibrary.Services.Interfaces;
+
+namespace DataPaintDesktop
+{
+    public partial class Home : Form
+    {
+        private readonly IAppCollectionService _appCollectionService;
+        private readonly ILoggerService _loggerService;
+        private readonly ISqlService _sqlService;
+        private readonly IDataExtractionService _extractionService;
+        private readonly IOrchestratorService _orchestratorService;
+
+        public Home(IAppCollectionService appCollectionService, ILoggerService loggerService, ISqlService sqlService, IDataExtractionService extractionService,
+                    IOrchestratorService orchestratorService)
+        {
+            InitializeComponent();
+
+            _appCollectionService = appCollectionService;
+            _loggerService = loggerService;
+            _sqlService = sqlService;
+            _extractionService = extractionService;
+            _orchestratorService = orchestratorService;
+        }
+
+        private void TestButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ManageGroupOwnerBtn_Click(object sender, EventArgs e)
+        {
+            ManageGroupOwner manageGroupOwner = new ManageGroupOwner(_appCollectionService, _loggerService, _sqlService);
+            manageGroupOwner.Show();
+        }
+
+        private void SetupOrientationBtn_Click(object sender, EventArgs e)
+        {
+            OrientationSetup orientationSetup = new OrientationSetup(_extractionService, _sqlService, _orchestratorService);
+            orientationSetup.Show();
+        }
+    }
+}

@@ -9,7 +9,7 @@ namespace DataPaintLibrary.Services.Classes
 {
     public class SqlService : ISqlService
     {
-        private static string connectionString = "Data Source=your_server;Initial Catalog=Localhost;Integrated Security=True";
+        private static string connectionString = @"Data Source=localhost\SQLEXPRESS;Initial Catalog=DataPaint;Integrated Security=True;TrustServerCertificate=True";
         private readonly ILoggerService _loggerService;
 
         public SqlService(ILoggerService loggerService)
@@ -30,6 +30,28 @@ namespace DataPaintLibrary.Services.Classes
         public async Task<DataTable> GetOwnerGroups()
         {
             return await ExecuteQueryAsync("[App].[GetOwnerGroups]");
+        }
+
+        public async Task CreateOwnerGroup(string name, string contactEmail, string phoneNumber)
+        {
+            var parameters = new[]
+            {
+                new SqlParameter("@GroupName", name),
+                new SqlParameter("@ContactEmail", contactEmail),
+                new SqlParameter("@PhoneNumber", phoneNumber),
+                new SqlParameter("@ErrorCode", SqlDbType.Int) { Direction = ParameterDirection.Output }
+            };
+
+            // Execute the stored procedure to create the owner group
+            await ExecuteNonQueryAsync("App.CreateOwnerGroup", parameters);
+
+
+            var errorCode = (int)parameters[3].Value;
+
+            if (errorCode != 0)
+            {
+                throw new Exception($"Stored Procedure Error: {errorCode}");
+            }
         }
 
         private async Task<DataTable> ExecuteQueryAsync(string storedProcedureName, params SqlParameter[] parameters)
@@ -63,6 +85,32 @@ namespace DataPaintLibrary.Services.Classes
             }
 
             return resultTable;
+        }
+
+        private async Task ExecuteNonQueryAsync(string storedProcedureName, params SqlParameter[] parameters)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    await connection.OpenAsync();
+                    using (SqlCommand command = new SqlCommand(storedProcedureName, connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        if (parameters != null)
+                        {
+                            command.Parameters.AddRange(parameters);
+                        }
+
+                        await command.ExecuteNonQueryAsync();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _loggerService.RecordException(ex, MethodBase.GetCurrentMethod().Name);
+                    throw;
+                }
+            }
         }
     }
 }

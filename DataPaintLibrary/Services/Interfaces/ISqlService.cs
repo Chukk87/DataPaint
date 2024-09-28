@@ -8,5 +8,6 @@ namespace DataPaintLibrary.Services.Interfaces
         Task<DataTable> GetOwnerGroups();
         Task<DataTable> GetSqlDataInputTable();
         Task<DataTable> GetSqlSheetInputTable();
+        Task CreateOwnerGroup(string name, string contactEmail, string phoneNumber);
     }
 }

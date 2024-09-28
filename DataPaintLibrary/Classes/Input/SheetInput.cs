@@ -40,6 +40,11 @@ namespace DataPaintLibrary.Classes
         public DataTable FormattedTable { get; set; }
 
         /// <summary>
+        /// Used by the UI to indicate if the sheet is to be collected
+        /// </summary>
+        public bool CollectSheet { get; set; } 
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="SheetInput"/> class.
         /// </summary>
         public SheetInput(string sheetName, bool includeHeader, int startRow, int endRow, int startColumn, int endColumn)

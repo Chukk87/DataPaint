@@ -12,6 +12,7 @@ namespace DataPaintLibrary.Services.Classes
     public class OrchestratorService : IOrchestratorService
     {
         private List<DataInput> _dataInputs;
+        private SheetInput _mockSheetInput;
         private readonly IDataExtractionService _dataExtraction;
 
         public OrchestratorService(IDataExtractionService dataExtraction)
@@ -25,6 +26,13 @@ namespace DataPaintLibrary.Services.Classes
 
             DataCollection();
             InputDataFormat();
+        }
+
+        public void MockRun(SheetInput mockSheetInput)
+        {
+            _mockSheetInput = mockSheetInput;
+
+            MockInputDataFormat();
         }
 
         private void DataCollection()
@@ -63,8 +71,18 @@ namespace DataPaintLibrary.Services.Classes
                     RemoveRowsFromStart(sheet);
                     RemoveColumnsFromEnd(sheet);
                     RemoveColumnsFromStart(sheet);
+                    MakeTopRowHeaders(sheet);
                 }
             }
+        }
+
+        private void MockInputDataFormat()
+        {
+            RemoveRowsFromEnd(_mockSheetInput);
+            RemoveRowsFromStart(_mockSheetInput);
+            RemoveColumnsFromEnd(_mockSheetInput);
+            RemoveColumnsFromStart(_mockSheetInput);
+            MakeTopRowHeaders(_mockSheetInput);
         }
 
         private static void RemoveRowsFromEnd(SheetInput sheet)
@@ -93,12 +111,9 @@ namespace DataPaintLibrary.Services.Classes
 
         private void RemoveColumnsFromStart(SheetInput sheet)
         {
-            for (int i = sheet.StartColumn - 1; i >= 0; i--)
+            for (int i = sheet.StartColumn- 1; i >= 1; i--)
             {
-                if (i < sheet.FormattedTable.Columns.Count)
-                {
-                    sheet.FormattedTable.Columns.RemoveAt(i);
-                }
+                sheet.FormattedTable.Columns.RemoveAt(i);
             }
         }
 
@@ -107,6 +122,22 @@ namespace DataPaintLibrary.Services.Classes
             for (int i = sheet.FormattedTable.Columns.Count - 1; i > sheet.EndColumn; i--)
             {
                 sheet.FormattedTable.Columns.RemoveAt(i);
+            }
+        }
+
+        private void MakeTopRowHeaders(SheetInput sheet)
+        {
+            if(sheet.IncludeHeader)
+            {
+                DataRow headerRow = sheet.FormattedTable.Rows[0];
+
+                for (int i = 0; i < sheet.FormattedTable.Columns.Count; i++)
+                {
+                    sheet.FormattedTable.Columns[i].ColumnName = headerRow[i].ToString();
+                }
+
+                sheet.FormattedTable.Rows[0].Delete();
+                sheet.FormattedTable.AcceptChanges();
             }
         }
     }

@@ -47,7 +47,7 @@ namespace DataPaintLibrary.Classes
         /// <summary>
         /// Gets the list of sheets associated with the data input.
         /// </summary>
-        public List<SheetInput> Sheets { get; private set; } = new List<SheetInput>();
+        public List<SheetInput> Sheets { get; set; } = new List<SheetInput>();
 
         /// <summary>
         /// Gets the log of sheet names for tracking.
@@ -66,6 +66,23 @@ namespace DataPaintLibrary.Classes
         public DataInput(int id, string name, int ownerGroupId, ExtractionType extractionType, DataType type, string location)
         {
             Id = id;
+            Name = name;
+            OwnerGroupId = ownerGroupId;
+            ExtractionType = extractionType;
+            Type = type;
+            Location = location;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DataInput"/> class.
+        /// </summary>
+        /// <param name="name">The name of the data input.</param>
+        /// <param name="ownerGroupId">The identifier for the owner group.</param>
+        /// <param name="extractionType">The extraction type of the data input.</param>
+        /// <param name="type">The type of data being input.</param>
+        /// <param name="location">The location of the input data.</param>
+        public DataInput(string name, int ownerGroupId, ExtractionType extractionType, DataType type, string location)
+        {
             Name = name;
             OwnerGroupId = ownerGroupId;
             ExtractionType = extractionType;

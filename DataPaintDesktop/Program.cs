@@ -27,17 +27,23 @@ namespace DataPaintDesktop
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(ServiceProvider.GetService<Form1>());
+            Application.Run(ServiceProvider.GetService<Home>());
         }
 
         // Change the parameter type to IServiceCollection instead of ServiceCollection
         private static void ConfigureServices(IServiceCollection services)
         {
-            // Register your services here
+            // Register services here
+            services.AddSingleton<ILoggerService, LoggerService>();
+            services.AddSingleton<ISqlService, SqlService>();
+            services.AddSingleton<IAppCollectionService, AppCollectionService>();
             services.AddSingleton<IDataExtractionService, DataExtractionService>();
+            services.AddSingleton<IClassBuilderService, ClassBuilderService>();
+            services.AddSingleton<IOrchestratorService, OrchestratorService>();
 
-            // Register your forms, allowing DI to inject dependencies into them
-            services.AddTransient<Form1>();
+            // Register forms, allowing DI to inject dependencies into them
+            services.AddTransient<Home>();
+            services.AddTransient<ManageGroupOwner>();
         }
     }
 }

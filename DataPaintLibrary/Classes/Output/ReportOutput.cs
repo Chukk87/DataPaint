@@ -2,7 +2,7 @@
 
 namespace DataPaintLibrary.Classes
 {
-    internal class ReportOutput
+    public class ReportOutput
     {
         int Id { get; }
         string ReportName { get; set; }
