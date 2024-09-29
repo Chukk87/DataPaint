@@ -5,6 +5,7 @@ using System.Data;
 using DataPaintLibrary.Services.Interfaces;
 using System.Reflection;
 using System.Collections.Generic;
+using DataPaintLibrary.Classes.Input;
 
 namespace DataPaintLibrary.Services.Classes
 {
@@ -21,6 +22,27 @@ namespace DataPaintLibrary.Services.Classes
         public async Task<DataTable> GetUsers()
         {
             return await ExecuteQueryAsync("App.GetUsers");
+        }
+
+        public async Task CreateSecurityGroup(string securityGroup)
+        {
+            var parameters = new[]
+{
+                new SqlParameter("@SecurityGroupName", securityGroup),
+                new SqlParameter("@ErrorCode", SqlDbType.Int) { Direction = ParameterDirection.Output }
+            };
+
+            await ExecuteNonQueryAsync("App.CreateSecurityGroup", parameters);
+        }
+
+        public async Task<DataTable> GetSecurityGroups()
+        {
+            return await ExecuteQueryAsync("App.GetSecurityGroups");
+        }
+
+        public async Task<DataTable> GetUserSecurity()
+        {
+            return await ExecuteQueryAsync("App.GetUserSecurity");
         }
 
         public async Task<DataTable> GetSqlSheetInputTable()

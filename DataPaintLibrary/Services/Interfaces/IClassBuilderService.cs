@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Data;
 using DataPaintLibrary.Classes;
+using DataPaintLibrary.Classes.Input;
 using DataPaintLibrary.Services.Classes;
 
 namespace DataPaintLibrary.Services.Interfaces
@@ -20,6 +21,8 @@ namespace DataPaintLibrary.Services.Interfaces
         /// <param name="table">The DataTable containing the owner group data.</param>
         /// <returns>A list of OwnerGroup objects.</returns>
         List<OwnerGroup> BuildOwnerGroups(DataTable table);
+
+        List<SecurityGroup> BuildSecurityGroups(DataTable securityTable, DataTable userSecurity);
 
         /// <summary>
         /// Builds a list of DataInput objects from two DataTables: one for DataInput and one for associated SheetInput.

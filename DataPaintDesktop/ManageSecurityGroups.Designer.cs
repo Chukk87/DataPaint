@@ -34,17 +34,17 @@
             NewSecurityGroupTextbox = new System.Windows.Forms.TextBox();
             CreateSecurityGroupBtn = new System.Windows.Forms.Button();
             groupBox1 = new System.Windows.Forms.GroupBox();
-            SaveChnagesBtn = new System.Windows.Forms.Button();
-            radioButton1 = new System.Windows.Forms.RadioButton();
             radioButton2 = new System.Windows.Forms.RadioButton();
+            radioButton1 = new System.Windows.Forms.RadioButton();
+            SaveChnagesBtn = new System.Windows.Forms.Button();
             groupBox2 = new System.Windows.Forms.GroupBox();
+            radioButton6 = new System.Windows.Forms.RadioButton();
+            radioButton5 = new System.Windows.Forms.RadioButton();
             radioButton3 = new System.Windows.Forms.RadioButton();
             radioButton4 = new System.Windows.Forms.RadioButton();
-            radioButton5 = new System.Windows.Forms.RadioButton();
             AdminListBox = new System.Windows.Forms.ListBox();
             label3 = new System.Windows.Forms.Label();
             label4 = new System.Windows.Forms.Label();
-            radioButton6 = new System.Windows.Forms.RadioButton();
             UserListBox = new System.Windows.Forms.ListBox();
             AdminUserCombobox = new System.Windows.Forms.ComboBox();
             AddAdminBtn = new System.Windows.Forms.Button();
@@ -96,6 +96,7 @@
             CreateSecurityGroupBtn.TabIndex = 5;
             CreateSecurityGroupBtn.Text = "Create";
             CreateSecurityGroupBtn.UseVisualStyleBackColor = true;
+            CreateSecurityGroupBtn.Click += CreateSecurityGroupBtn_Click;
             // 
             // groupBox1
             // 
@@ -108,14 +109,16 @@
             groupBox1.TabStop = false;
             groupBox1.Text = "Security Type";
             // 
-            // SaveChnagesBtn
+            // radioButton2
             // 
-            SaveChnagesBtn.Location = new System.Drawing.Point(498, 401);
-            SaveChnagesBtn.Name = "SaveChnagesBtn";
-            SaveChnagesBtn.Size = new System.Drawing.Size(123, 23);
-            SaveChnagesBtn.TabIndex = 7;
-            SaveChnagesBtn.Text = "Save Changes";
-            SaveChnagesBtn.UseVisualStyleBackColor = true;
+            radioButton2.AutoSize = true;
+            radioButton2.Location = new System.Drawing.Point(98, 22);
+            radioButton2.Name = "radioButton2";
+            radioButton2.Size = new System.Drawing.Size(136, 19);
+            radioButton2.TabIndex = 8;
+            radioButton2.TabStop = true;
+            radioButton2.Text = "Group User Run Only";
+            radioButton2.UseVisualStyleBackColor = true;
             // 
             // radioButton1
             // 
@@ -128,16 +131,15 @@
             radioButton1.Text = "No Security";
             radioButton1.UseVisualStyleBackColor = true;
             // 
-            // radioButton2
+            // SaveChnagesBtn
             // 
-            radioButton2.AutoSize = true;
-            radioButton2.Location = new System.Drawing.Point(98, 22);
-            radioButton2.Name = "radioButton2";
-            radioButton2.Size = new System.Drawing.Size(136, 19);
-            radioButton2.TabIndex = 8;
-            radioButton2.TabStop = true;
-            radioButton2.Text = "Group User Run Only";
-            radioButton2.UseVisualStyleBackColor = true;
+            SaveChnagesBtn.Location = new System.Drawing.Point(498, 401);
+            SaveChnagesBtn.Name = "SaveChnagesBtn";
+            SaveChnagesBtn.Size = new System.Drawing.Size(123, 23);
+            SaveChnagesBtn.TabIndex = 7;
+            SaveChnagesBtn.Text = "Save Changes";
+            SaveChnagesBtn.UseVisualStyleBackColor = true;
+            SaveChnagesBtn.Click += SaveChnagesBtn_Click;
             // 
             // groupBox2
             // 
@@ -151,6 +153,28 @@
             groupBox2.TabIndex = 9;
             groupBox2.TabStop = false;
             groupBox2.Text = "Authorisation Change Type";
+            // 
+            // radioButton6
+            // 
+            radioButton6.AutoSize = true;
+            radioButton6.Location = new System.Drawing.Point(6, 23);
+            radioButton6.Name = "radioButton6";
+            radioButton6.Size = new System.Drawing.Size(146, 19);
+            radioButton6.TabIndex = 10;
+            radioButton6.TabStop = true;
+            radioButton6.Text = "Group Admin and User";
+            radioButton6.UseVisualStyleBackColor = true;
+            // 
+            // radioButton5
+            // 
+            radioButton5.AutoSize = true;
+            radioButton5.Location = new System.Drawing.Point(6, 48);
+            radioButton5.Name = "radioButton5";
+            radioButton5.Size = new System.Drawing.Size(153, 19);
+            radioButton5.TabIndex = 9;
+            radioButton5.TabStop = true;
+            radioButton5.Text = "Any Security Group User";
+            radioButton5.UseVisualStyleBackColor = true;
             // 
             // radioButton3
             // 
@@ -173,17 +197,6 @@
             radioButton4.TabStop = true;
             radioButton4.Text = "No Authorisation";
             radioButton4.UseVisualStyleBackColor = true;
-            // 
-            // radioButton5
-            // 
-            radioButton5.AutoSize = true;
-            radioButton5.Location = new System.Drawing.Point(6, 48);
-            radioButton5.Name = "radioButton5";
-            radioButton5.Size = new System.Drawing.Size(153, 19);
-            radioButton5.TabIndex = 9;
-            radioButton5.TabStop = true;
-            radioButton5.Text = "Any Security Group User";
-            radioButton5.UseVisualStyleBackColor = true;
             // 
             // AdminListBox
             // 
@@ -211,17 +224,6 @@
             label4.Size = new System.Drawing.Size(71, 15);
             label4.TabIndex = 12;
             label4.Text = "Group Users";
-            // 
-            // radioButton6
-            // 
-            radioButton6.AutoSize = true;
-            radioButton6.Location = new System.Drawing.Point(6, 23);
-            radioButton6.Name = "radioButton6";
-            radioButton6.Size = new System.Drawing.Size(146, 19);
-            radioButton6.TabIndex = 10;
-            radioButton6.TabStop = true;
-            radioButton6.Text = "Group Admin and User";
-            radioButton6.UseVisualStyleBackColor = true;
             // 
             // UserListBox
             // 

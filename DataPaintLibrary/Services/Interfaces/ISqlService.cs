@@ -7,8 +7,11 @@ namespace DataPaintLibrary.Services.Interfaces
     {
         Task<DataTable> GetUsers();
         Task<DataTable> GetOwnerGroups();
+        Task<DataTable> GetSecurityGroups();
+        Task<DataTable> GetUserSecurity();
         Task<DataTable> GetSqlDataInputTable();
         Task<DataTable> GetSqlSheetInputTable();
         Task CreateOwnerGroup(string name, string contactEmail, string phoneNumber);
+        Task CreateSecurityGroup(string securityGroup);
     }
 }

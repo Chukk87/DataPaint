@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows.Forms;
-using DataPaintLibrary.Classes;
 using DataPaintLibrary.Services.Interfaces;
 
 namespace DataPaintDesktop
@@ -25,21 +24,22 @@ namespace DataPaintDesktop
             _orchestratorService = orchestratorService;
         }
 
-        private void TestButton_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void ManageGroupOwnerBtn_Click(object sender, EventArgs e)
         {
-            ManageGroupOwner manageGroupOwner = new ManageGroupOwner(_appCollectionService, _loggerService, _sqlService);
+            var manageGroupOwner = new ManageGroupOwner(_appCollectionService, _loggerService, _sqlService);
             manageGroupOwner.Show();
         }
 
         private void SetupOrientationBtn_Click(object sender, EventArgs e)
         {
-            OrientationSetup orientationSetup = new OrientationSetup(_extractionService, _sqlService, _orchestratorService);
+            var orientationSetup = new OrientationSetup(_extractionService, _sqlService, _orchestratorService);
             orientationSetup.Show();
+        }
+
+        private void ManageSecurityGroupsBtn_Click(object sender, EventArgs e)
+        {
+            var manageSecurityGroups = new ManageSecurityGroups(_appCollectionService, _loggerService, _sqlService);
+            manageSecurityGroups.Show();
         }
     }
 }

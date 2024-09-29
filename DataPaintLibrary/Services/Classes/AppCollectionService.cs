@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using DataPaintLibrary.Classes;
+using DataPaintLibrary.Classes.Input;
 
 namespace DataPaintLibrary.Services.Classes
 {
@@ -12,6 +13,7 @@ namespace DataPaintLibrary.Services.Classes
 
         private List<User> _users = new List<User>();
         private List<OwnerGroup> _ownerGroups = new List<OwnerGroup>();
+        private List<SecurityGroup> _securityGroups = new List<SecurityGroup>();
         private List<DataInput> _dataInputs = new List<DataInput>();
 
         public AppCollectionService(ISqlService sqlService, IClassBuilderService classBuilderService)
@@ -43,6 +45,16 @@ namespace DataPaintLibrary.Services.Classes
             _ownerGroups = _classBuilderService.BuildOwnerGroups(ownerGroupsTable);
 
             return _ownerGroups;
+        }
+
+        public async Task<List<SecurityGroup>> GetSecurityGroups()
+        {
+            var securityGroupsTable = await _sqlService.GetSecurityGroups();
+            var userSecurityTable = await _sqlService.GetUserSecurity();
+
+            _securityGroups = _classBuilderService.BuildSecurityGroups(securityGroupsTable, userSecurityTable);
+
+            return _securityGroups;
         }
 
         /// <summary>

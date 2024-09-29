@@ -5,6 +5,7 @@ using System.Data;
 using DataPaintLibrary.Services.Interfaces;
 using DataPaintLibrary.Classes;
 using DataPaintLibrary.Enums;
+using DataPaintLibrary.Classes.Input;
 
 namespace DataPaintLibrary.Services.Classes
 {
@@ -47,6 +48,43 @@ namespace DataPaintLibrary.Services.Classes
             }
 
             return groupOwnerList;
+        }
+
+        public List<SecurityGroup> BuildSecurityGroups(DataTable securityTable, DataTable userSecurity)
+        {
+            var securityGroupList = new List<SecurityGroup>();
+
+            foreach (DataRow dr in securityTable.AsEnumerable())
+            {
+                var securityGroup = new SecurityGroup(
+                    dr.Field<Guid>("Id"),
+                    dr.Field<string>("SecurityGroupName")
+                );
+
+                var adminUsers = userSecurity.AsEnumerable()
+                                            .Where(row => row.Field<Guid>("Id") == dr.Field<Guid>("Id")
+                                                       && row.Field<int>("UserType") == (int)UserType.Admin)
+                                            .Select(row => row.Field<Guid>("Id"));
+
+                var users = userSecurity.AsEnumerable()
+                                            .Where(row => row.Field<Guid>("Id") == dr.Field<Guid>("Id")
+                                                       && row.Field<int>("UserType") == (int)UserType.User)
+                                            .Select(row => row.Field<Guid>("Id"));
+
+                foreach (var admin in adminUsers)
+                {
+                    securityGroup.Admins.Add(admin);
+                }
+
+                foreach (var user in users)
+                {
+                    securityGroup.Users.Add(user);
+                }
+
+                securityGroupList.Add(securityGroup);
+            }
+
+            return securityGroupList;
         }
 
         public List<DataInput> BuildDataInputs(DataTable inputDataTable, DataTable inputSheetTable)

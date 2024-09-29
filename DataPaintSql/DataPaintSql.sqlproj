@@ -74,5 +74,10 @@
     <Build Include="Tables\User.sql" />
     <Build Include="TestSetup.sql" />
     <Build Include="StoredProcedures\GetUsers.sql" />
+    <Build Include="StoredProcedures\CreateSecurityGroup.sql" />
+    <Build Include="Tables\SecurityGroups.sql" />
+    <Build Include="StoredProcedures\GetSecurityGroups.sql" />
+    <Build Include="Tables\UserSecurity.sql" />
+    <Build Include="StoredProcedures\GetUserSecurity.sql" />
   </ItemGroup>
 </Project>

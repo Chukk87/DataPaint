@@ -32,7 +32,7 @@ namespace DataPaintDesktop
             menuStrip1 = new System.Windows.Forms.MenuStrip();
             SetupOrientationBtn = new System.Windows.Forms.Button();
             ManageGroupOwnerBtn = new System.Windows.Forms.Button();
-            button1 = new System.Windows.Forms.Button();
+            ManageSecurityGroupsBtn = new System.Windows.Forms.Button();
             SuspendLayout();
             // 
             // menuStrip1
@@ -64,21 +64,22 @@ namespace DataPaintDesktop
             ManageGroupOwnerBtn.UseVisualStyleBackColor = true;
             ManageGroupOwnerBtn.Click += ManageGroupOwnerBtn_Click;
             // 
-            // button1
+            // ManageSecurityGroupsBtn
             // 
-            button1.Location = new System.Drawing.Point(153, 106);
-            button1.Name = "button1";
-            button1.Size = new System.Drawing.Size(214, 23);
-            button1.TabIndex = 3;
-            button1.Text = "Manage Security Groups";
-            button1.UseVisualStyleBackColor = true;
+            ManageSecurityGroupsBtn.Location = new System.Drawing.Point(153, 106);
+            ManageSecurityGroupsBtn.Name = "ManageSecurityGroupsBtn";
+            ManageSecurityGroupsBtn.Size = new System.Drawing.Size(214, 23);
+            ManageSecurityGroupsBtn.TabIndex = 3;
+            ManageSecurityGroupsBtn.Text = "Manage Security Groups";
+            ManageSecurityGroupsBtn.UseVisualStyleBackColor = true;
+            ManageSecurityGroupsBtn.Click += ManageSecurityGroupsBtn_Click;
             // 
             // Home
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(819, 450);
-            Controls.Add(button1);
+            Controls.Add(ManageSecurityGroupsBtn);
             Controls.Add(ManageGroupOwnerBtn);
             Controls.Add(SetupOrientationBtn);
             Controls.Add(menuStrip1);
@@ -94,7 +95,7 @@ namespace DataPaintDesktop
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.Button SetupOrientationBtn;
         private System.Windows.Forms.Button ManageGroupOwnerBtn;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button ManageSecurityGroupsBtn;
     }
 }
 
