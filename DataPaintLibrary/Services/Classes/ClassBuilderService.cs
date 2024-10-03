@@ -62,14 +62,14 @@ namespace DataPaintLibrary.Services.Classes
                 );
 
                 var adminUsers = userSecurity.AsEnumerable()
-                                            .Where(row => row.Field<Guid>("Id") == dr.Field<Guid>("Id")
+                                            .Where(row => row.Field<Guid>("SecurityGroupId") == dr.Field<Guid>("Id")
                                                        && row.Field<int>("UserType") == (int)UserType.Admin)
-                                            .Select(row => row.Field<Guid>("Id"));
+                                            .Select(row => row.Field<Guid>("UserId"));
 
                 var users = userSecurity.AsEnumerable()
-                                            .Where(row => row.Field<Guid>("Id") == dr.Field<Guid>("Id")
+                                            .Where(row => row.Field<Guid>("SecurityGroupId") == dr.Field<Guid>("Id")
                                                        && row.Field<int>("UserType") == (int)UserType.User)
-                                            .Select(row => row.Field<Guid>("Id"));
+                                            .Select(row => row.Field<Guid>("UserId"));
 
                 foreach (var admin in adminUsers)
                 {

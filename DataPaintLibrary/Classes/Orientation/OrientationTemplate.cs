@@ -22,7 +22,7 @@ namespace DataPaintLibrary.Classes.Orientation
         /// <summary>
         /// The format parameters required to build the outputs.
         /// </summary>
-        public List<SheetFormatParameter> SheetFormatParameters { get; set; } = new List<SheetFormatParameter>();
+        public List<FormattingStep> FormattingSteps { get; set; } = new List<FormattingStep>();
 
         /// <summary>
         /// The built outputs of the report.
@@ -47,6 +47,6 @@ namespace DataPaintLibrary.Classes.Orientation
         /// <summary>
         /// The security groups containing authorizers to change and run the report.
         /// </summary>
-        public List<SecurityGroup> SecurityGroups { get; set; } = new List<SecurityGroup>();
+        public SecurityGroup SecurityGroups { get; set; }
     }
 }

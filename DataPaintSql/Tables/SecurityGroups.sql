@@ -2,5 +2,7 @@
 (
 	[Id] UNIQUEIDENTIFIER PRIMARY KEY DEFAULT NEWID(),
 	[SecurityGroupName] NVARCHAR(50),
-	[Type] INT
+	[SecurityType] INT,
+	[AuthorisationType] INT,
+	[VisibleToAll] BIT
 )

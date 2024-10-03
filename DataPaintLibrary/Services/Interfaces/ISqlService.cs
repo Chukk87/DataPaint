@@ -1,5 +1,8 @@
 ﻿using System.Threading.Tasks;
 using System.Data;
+using DataPaintLibrary.Enums;
+using System;
+using DataPaintLibrary.Classes.Input;
 
 namespace DataPaintLibrary.Services.Interfaces
 {
@@ -13,5 +16,7 @@ namespace DataPaintLibrary.Services.Interfaces
         Task<DataTable> GetSqlSheetInputTable();
         Task CreateOwnerGroup(string name, string contactEmail, string phoneNumber);
         Task CreateSecurityGroup(string securityGroup);
+        Task AddUserToSecurityGroup(Guid securityGroupId, Guid userGroupId, UserType userType);
+        Task UpdateSecurityGroup(SecurityGroup securityGroup);
     }
 }

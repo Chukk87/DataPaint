@@ -79,5 +79,7 @@
     <Build Include="StoredProcedures\GetSecurityGroups.sql" />
     <Build Include="Tables\UserSecurity.sql" />
     <Build Include="StoredProcedures\GetUserSecurity.sql" />
+    <Build Include="StoredProcedures\AddUserToSecurityGroup.sql" />
+    <Build Include="StoredProcedures\UpdateOwnerGroup.sql" />
   </ItemGroup>
 </Project>

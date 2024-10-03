@@ -11,8 +11,8 @@ namespace DataPaintLibrary.Classes.Input
         public SecurityType SecurityType { get; set; } //needs to be added to database when created
         public AuthorisationType AuthorisationType { get; set; } //needs to be added to database when created
         public bool VisibleToAll { get; set; } 
-        public List<Guid> Admins { get; set; }
-        public List<Guid> Users { get; set; }
+        public List<Guid> Admins { get; set; } = new List<Guid>();
+        public List<Guid> Users { get; set; } = new List<Guid>();
 
         /// <summary>
         ///Used when retrieving data from data source

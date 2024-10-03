@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using DataPaintLibrary.Services.Classes;
 using DataPaintLibrary.Services.Interfaces;
 
 namespace DataPaintDesktop
@@ -11,9 +12,11 @@ namespace DataPaintDesktop
         private readonly ISqlService _sqlService;
         private readonly IDataExtractionService _extractionService;
         private readonly IOrchestratorService _orchestratorService;
+        private readonly ISecurityGroupService _securityGroupService;
+        private readonly IClassBuilderService _classBuilderService;
 
         public Home(IAppCollectionService appCollectionService, ILoggerService loggerService, ISqlService sqlService, IDataExtractionService extractionService,
-                    IOrchestratorService orchestratorService)
+                    IOrchestratorService orchestratorService, ISecurityGroupService securityGroupService, IClassBuilderService classBuilderService)
         {
             InitializeComponent();
 
@@ -22,6 +25,8 @@ namespace DataPaintDesktop
             _sqlService = sqlService;
             _extractionService = extractionService;
             _orchestratorService = orchestratorService;
+            _securityGroupService = securityGroupService;
+            _classBuilderService = classBuilderService;
         }
 
         private void ManageGroupOwnerBtn_Click(object sender, EventArgs e)
@@ -32,13 +37,13 @@ namespace DataPaintDesktop
 
         private void SetupOrientationBtn_Click(object sender, EventArgs e)
         {
-            var orientationSetup = new OrientationSetup(_extractionService, _sqlService, _orchestratorService);
+            var orientationSetup = new OrientationSetup(_extractionService, _sqlService, _orchestratorService, _classBuilderService);
             orientationSetup.Show();
         }
 
         private void ManageSecurityGroupsBtn_Click(object sender, EventArgs e)
         {
-            var manageSecurityGroups = new ManageSecurityGroups(_appCollectionService, _loggerService, _sqlService);
+            var manageSecurityGroups = new ManageSecurityGroups(_appCollectionService, _loggerService, _sqlService, _securityGroupService);
             manageSecurityGroups.Show();
         }
     }

@@ -2,7 +2,6 @@
 
 AS
 BEGIN
-    SELECT [Id], [SecurityGroupName], [Type]
+    SELECT [Id], [SecurityGroupName], [SecurityType], [AuthorisationType], [VisibleToAll]
     FROM App.SecurityGroups
 END;
-

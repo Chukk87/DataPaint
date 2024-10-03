@@ -34,7 +34,6 @@ namespace DataPaintLibrary.Services.Classes
             return _users;
         }
 
-
         /// <summary>
         /// Retrieves all owner groups from the data source.
         /// </summary>

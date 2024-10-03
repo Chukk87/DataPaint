@@ -13,6 +13,7 @@ namespace DataPaintLibrary.Services.Classes
     {
         private List<DataInput> _dataInputs;
         private SheetInput _mockSheetInput;
+        private List<OrientationTemplate> _orientationTemplates;
         private readonly IDataExtractionService _dataExtraction;
 
         public OrchestratorService(IDataExtractionService dataExtraction)
@@ -139,6 +140,107 @@ namespace DataPaintLibrary.Services.Classes
                 sheet.FormattedTable.Rows[0].Delete();
                 sheet.FormattedTable.AcceptChanges();
             }
+        }
+
+        private void FilterTable(SheetInput sheet, Dictionary<string, object> parameters)
+        {
+            string columnName = parameters["ColumnName"].ToString();
+            string filterValue = parameters["FilterValue"].ToString();
+
+            var filteredRows = sheet.FormattedTable.AsEnumerable()
+                .Where(row => row.Field<string>(columnName) == filterValue);
+
+            sheet.FormattedTable = filteredRows.CopyToDataTable();
+        }
+
+        private void SortTable(SheetInput sheet, Dictionary<string, object> parameters)
+        {
+            string columnName = parameters["ColumnName"].ToString();
+            bool ascending = (bool)parameters["Ascending"];
+
+            var sortedRows = ascending
+                ? sheet.FormattedTable.AsEnumerable().OrderBy(row => row.Field<string>(columnName))
+                : sheet.FormattedTable.AsEnumerable().OrderByDescending(row => row.Field<string>(columnName));
+
+            sheet.FormattedTable = sortedRows.CopyToDataTable();
+        }
+
+        private void GroupTable(SheetInput sheet, Dictionary<string, object> parameters)
+        {
+            string groupByColumn = parameters["GroupByColumn"].ToString();
+            var groupedRows = from row in sheet.FormattedTable.AsEnumerable()
+                              group row by row.Field<string>(groupByColumn) into grp
+                              select new
+                              {
+                                  GroupKey = grp.Key,
+                                  Count = grp.Count(),
+                              };
+
+            DataTable groupedTable = new DataTable();
+            groupedTable.Columns.Add("GroupKey", typeof(string));
+            groupedTable.Columns.Add("Count", typeof(int));
+
+            foreach (var group in groupedRows)
+            {
+                groupedTable.Rows.Add(group.GroupKey, group.Count);
+            }
+
+            sheet.FormattedTable = groupedTable;
+        }
+
+        private void TransformData(SheetInput sheet, Dictionary<string, object> parameters)
+        {
+            string columnName = parameters["ColumnName"].ToString();
+            string transformationType = parameters["TransformationType"].ToString();
+
+            foreach (DataRow row in sheet.FormattedTable.Rows)
+            {
+                if (transformationType == "Uppercase")
+                {
+                    row[columnName] = row[columnName].ToString().ToUpper();
+                }
+                else if (transformationType == "Lowercase")
+                {
+                    row[columnName] = row[columnName].ToString().ToLower();
+                }
+            }
+        }
+
+        private void MergeTables(SheetInput sheet, Dictionary<string, object> parameters)
+        {
+            DataTable otherTable = parameters["OtherTable"] as DataTable;
+            string mergeOnColumn = parameters["MergeOnColumn"].ToString();
+
+            var mergedRows = from row1 in sheet.FormattedTable.AsEnumerable()
+                             join row2 in otherTable.AsEnumerable()
+                             on row1.Field<string>(mergeOnColumn) equals row2.Field<string>(mergeOnColumn)
+                             select new
+                             {
+                                 Col1 = row1.Field<string>("Column1"),
+                                 Col2 = row2.Field<string>("Column2")
+                             };
+
+            DataTable mergedTable = new DataTable();
+            mergedTable.Columns.Add("Column1", typeof(string));
+            mergedTable.Columns.Add("Column2", typeof(string));
+
+            foreach (var row in mergedRows)
+            {
+                mergedTable.Rows.Add(row.Col1, row.Col2);
+            }
+
+            sheet.FormattedTable = mergedTable;
+        }
+
+        private void RemoveDuplicates(SheetInput sheet, Dictionary<string, object> parameters)
+        {
+            string columnName = parameters["ColumnName"].ToString();
+
+            var distinctRows = sheet.FormattedTable.AsEnumerable()
+                .GroupBy(row => row.Field<string>(columnName))
+                .Select(g => g.First());
+
+            sheet.FormattedTable = distinctRows.CopyToDataTable();
         }
     }
 }

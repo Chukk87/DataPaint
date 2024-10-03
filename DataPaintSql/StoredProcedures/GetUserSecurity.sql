@@ -3,7 +3,7 @@
 CREATE PROCEDURE [App].[GetUserSecurity]
 
 AS
-BEGIN
-    SELECT [Id], [UserId], [UserType]
+BEGIN 
+    SELECT [SecurityGroupId], [UserId], [UserType]
     FROM [App].[UserSecurity]
 END;

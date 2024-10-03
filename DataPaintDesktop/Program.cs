@@ -40,6 +40,7 @@ namespace DataPaintDesktop
             services.AddSingleton<IDataExtractionService, DataExtractionService>();
             services.AddSingleton<IClassBuilderService, ClassBuilderService>();
             services.AddSingleton<IOrchestratorService, OrchestratorService>();
+            services.AddSingleton<ISecurityGroupService, SecurityGroupService>();
 
             // Register forms, allowing DI to inject dependencies into them
             services.AddTransient<Home>();

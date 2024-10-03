@@ -6,6 +6,7 @@ using DataPaintLibrary.Services.Interfaces;
 using System.Reflection;
 using System.Collections.Generic;
 using DataPaintLibrary.Classes.Input;
+using DataPaintLibrary.Enums;
 
 namespace DataPaintLibrary.Services.Classes
 {
@@ -27,12 +28,53 @@ namespace DataPaintLibrary.Services.Classes
         public async Task CreateSecurityGroup(string securityGroup)
         {
             var parameters = new[]
-{
+            {
                 new SqlParameter("@SecurityGroupName", securityGroup),
+                new SqlParameter("@SecurityType", SqlDbType.Int) { Value = (int)SecurityType.None },  // Explicit SqlDbType.Int
+                new SqlParameter("@AuthorisationType", SqlDbType.Int) { Value = (int)AuthorisationType.None },  // Explicit SqlDbType.Int
+                new SqlParameter("@VisibleToAll", SqlDbType.Bit) { Value = false },  // Explicit SqlDbType.Bit for boolean
                 new SqlParameter("@ErrorCode", SqlDbType.Int) { Direction = ParameterDirection.Output }
             };
 
             await ExecuteNonQueryAsync("App.CreateSecurityGroup", parameters);
+        }
+
+        public async Task UpdateSecurityGroup(SecurityGroup securityGroup)
+        {
+            var parameters = new[]
+            {
+                new SqlParameter("@SecurityGroupId", SqlDbType.UniqueIdentifier) { Value = securityGroup.Id },
+                new SqlParameter("@SecurityGroupName", SqlDbType.NVarChar, 100) { Value = securityGroup.GroupName },
+                new SqlParameter("@SecurityType", SqlDbType.Int) { Value = (int)securityGroup.SecurityType },
+                new SqlParameter("@AuthorisationType", SqlDbType.Int) { Value = (int)securityGroup.AuthorisationType },
+                new SqlParameter("@VisibleToAll", SqlDbType.Bit) { Value = securityGroup.VisibleToAll },
+                new SqlParameter("@ErrorCode", SqlDbType.Int) { Direction = ParameterDirection.Output }
+            };
+
+            await ExecuteNonQueryAsync("App.UpdateSecurityGroup", parameters);
+
+            foreach (var adminId in securityGroup.Admins)
+            {
+                await AddUserToSecurityGroup(securityGroup.Id, adminId, UserType.Admin);
+            }
+
+            foreach (var userId in securityGroup.Users)
+            {
+                await AddUserToSecurityGroup(securityGroup.Id, userId, UserType.User);
+            }
+        }
+
+        public async Task AddUserToSecurityGroup(Guid securityGroupId, Guid userGroupId, UserType userType)
+        {
+            var parameters = new[]
+            {
+                new SqlParameter("@SecurityGroupId", SqlDbType.UniqueIdentifier) { Value = securityGroupId },
+                new SqlParameter("@UserId", SqlDbType.UniqueIdentifier) { Value = userGroupId },
+                new SqlParameter("@UserType", SqlDbType.Int) { Value = (int)userType },
+                new SqlParameter("@ErrorCode", SqlDbType.Int) { Direction = ParameterDirection.Output }
+            };
+
+            await ExecuteNonQueryAsync("App.AddUserToSecurityGroup", parameters);
         }
 
         public async Task<DataTable> GetSecurityGroups()

@@ -1,9 +1,14 @@
 ﻿using DataPaintLibrary.Classes;
+using DataPaintLibrary.Classes.Input;
 using DataPaintLibrary.Classes.Orientation;
 using DataPaintLibrary.Enums;
+using DataPaintLibrary.Services.Classes;
 using DataPaintLibrary.Services.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DataPaintDesktop
@@ -12,17 +17,55 @@ namespace DataPaintDesktop
     {
         private readonly IDataExtractionService _extractionService;
         private readonly ISqlService _sqlService;
+        private readonly IClassBuilderService _classBuilderService;
         private readonly IOrchestratorService _orchestratorService;
 
         private OrientationTemplate _orientationTemplate;
+        List<OwnerGroup> _ownersGroup;
+        List<SecurityGroup> _securityGroups;
 
-        public OrientationSetup(IDataExtractionService dataExtractionService, ISqlService sqlService, IOrchestratorService orchestratorService)
+        public OrientationSetup(IDataExtractionService dataExtractionService, ISqlService sqlService, IOrchestratorService orchestratorService,
+                                IClassBuilderService classBuilderService)
         {
             _extractionService = dataExtractionService;
             _sqlService = sqlService;
             _orchestratorService = orchestratorService;
+            _classBuilderService = classBuilderService;
 
             InitializeComponent();
+        }
+
+        private async void OrientationSetup_Load(object sender, EventArgs e)
+        {
+            await PopulateSecurityGroups();
+            await PopulateGroupOwners();
+            PopulateInputType();
+        }
+
+        public async Task PopulateSecurityGroups()
+        {
+            DataTable securityTable = await _sqlService.GetSecurityGroups();
+            DataTable usersTable = await _sqlService.GetUserSecurity();
+
+            _securityGroups = _classBuilderService.BuildSecurityGroups(securityTable, usersTable);
+            SecurityGroupComboBox.DataSource = _securityGroups;
+            SecurityGroupComboBox.DisplayMember = "GroupName";
+            SecurityGroupComboBox.ValueMember = "Id";
+        }
+
+        private async Task PopulateGroupOwners()
+        {
+            DataTable ownerGroupsTable = await _sqlService.GetOwnerGroups();
+
+            _ownersGroup = _classBuilderService.BuildOwnerGroups(ownerGroupsTable);
+            GroupOwnerComboBox.DataSource = _ownersGroup;
+            GroupOwnerComboBox.DisplayMember = "Name";
+            GroupOwnerComboBox.ValueMember = "Id";
+        }
+
+        private void PopulateInputType()
+        {
+            InputTypeComboBox.DataSource = Enum.GetValues(typeof(ExtractionType)).Cast<ExtractionType>().ToList();
         }
 
         private void FindDirectoryBtn_Click(object sender, EventArgs e)
@@ -40,7 +83,7 @@ namespace DataPaintDesktop
             {
                 InputDataListBox.Items.Clear();
 
-                foreach(var di in _orientationTemplate.DataInputs)
+                foreach (var di in _orientationTemplate.DataInputs)
                 {
                     InputDataListBox.Items.Add(di.Name);
                 }
@@ -57,6 +100,13 @@ namespace DataPaintDesktop
             ReportNameTextBox.Enabled = false;
             SecurityGroupComboBox.Enabled = false;
             CreateBaseTemplateBtn.Enabled = false;
+        }
+
+        private void StartSteps_Click(object sender, EventArgs e)
+        {
+            _orchestratorService.Run(_orientationTemplate.DataInputs);
+
+
         }
     }
 }
