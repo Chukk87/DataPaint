@@ -168,7 +168,6 @@ namespace DataPaintLibrary.Extensions
                           on left.Field<object>(leftColumn) equals right?.Field<object>(rightColumn) ?? DBNull.Value
                           select left.ItemArray.Concat(right?.ItemArray ?? new object[rightTable.Columns.Count]).ToArray(),
 
-                // Add more join types (RIGHT, FULL OUTER) as needed
                 _ => throw new ArgumentException("Invalid join type"),
             };
 

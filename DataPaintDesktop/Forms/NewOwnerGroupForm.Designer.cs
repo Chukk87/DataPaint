@@ -39,29 +39,30 @@
             // 
             // PhoneTextBox
             // 
-            PhoneTextBox.Location = new System.Drawing.Point(109, 54);
+            PhoneTextBox.Location = new System.Drawing.Point(573, 6);
             PhoneTextBox.Name = "PhoneTextBox";
-            PhoneTextBox.Size = new System.Drawing.Size(253, 23);
+            PhoneTextBox.Size = new System.Drawing.Size(141, 23);
             PhoneTextBox.TabIndex = 12;
             // 
             // EmailTextBox
             // 
-            EmailTextBox.Location = new System.Drawing.Point(109, 30);
+            EmailTextBox.Location = new System.Drawing.Point(323, 6);
             EmailTextBox.Name = "EmailTextBox";
-            EmailTextBox.Size = new System.Drawing.Size(253, 23);
+            EmailTextBox.Size = new System.Drawing.Size(150, 23);
             EmailTextBox.TabIndex = 11;
             // 
             // GroupNameTextBox
             // 
-            GroupNameTextBox.Location = new System.Drawing.Point(109, 6);
+            GroupNameTextBox.Location = new System.Drawing.Point(84, 6);
             GroupNameTextBox.Name = "GroupNameTextBox";
-            GroupNameTextBox.Size = new System.Drawing.Size(253, 23);
+            GroupNameTextBox.Size = new System.Drawing.Size(146, 23);
             GroupNameTextBox.TabIndex = 10;
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new System.Drawing.Point(12, 57);
+            label3.ForeColor = System.Drawing.SystemColors.ButtonShadow;
+            label3.Location = new System.Drawing.Point(479, 9);
             label3.Name = "label3";
             label3.Size = new System.Drawing.Size(88, 15);
             label3.TabIndex = 9;
@@ -70,7 +71,8 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new System.Drawing.Point(12, 33);
+            label2.ForeColor = System.Drawing.SystemColors.ButtonShadow;
+            label2.Location = new System.Drawing.Point(236, 9);
             label2.Name = "label2";
             label2.Size = new System.Drawing.Size(81, 15);
             label2.TabIndex = 8;
@@ -79,7 +81,8 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new System.Drawing.Point(12, 9);
+            label1.ForeColor = System.Drawing.SystemColors.ButtonShadow;
+            label1.Location = new System.Drawing.Point(3, 9);
             label1.Name = "label1";
             label1.Size = new System.Drawing.Size(75, 15);
             label1.TabIndex = 7;
@@ -87,19 +90,23 @@
             // 
             // CreateNewOwnerGroupBtn
             // 
-            CreateNewOwnerGroupBtn.Location = new System.Drawing.Point(183, 83);
+            CreateNewOwnerGroupBtn.BackColor = System.Drawing.Color.FromArgb(56, 56, 56);
+            CreateNewOwnerGroupBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            CreateNewOwnerGroupBtn.ForeColor = System.Drawing.SystemColors.Menu;
+            CreateNewOwnerGroupBtn.Location = new System.Drawing.Point(720, 5);
             CreateNewOwnerGroupBtn.Name = "CreateNewOwnerGroupBtn";
-            CreateNewOwnerGroupBtn.Size = new System.Drawing.Size(179, 23);
+            CreateNewOwnerGroupBtn.Size = new System.Drawing.Size(125, 23);
             CreateNewOwnerGroupBtn.TabIndex = 13;
-            CreateNewOwnerGroupBtn.Text = "Create New Owner Group";
-            CreateNewOwnerGroupBtn.UseVisualStyleBackColor = true;
+            CreateNewOwnerGroupBtn.Text = "Create";
+            CreateNewOwnerGroupBtn.UseVisualStyleBackColor = false;
             CreateNewOwnerGroupBtn.Click += CreateNewOwnerGroupBtn_Click;
             // 
             // NewOwnerGroupForm
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(371, 112);
+            BackColor = System.Drawing.Color.FromArgb(37, 37, 38);
+            ClientSize = new System.Drawing.Size(959, 39);
             Controls.Add(CreateNewOwnerGroupBtn);
             Controls.Add(PhoneTextBox);
             Controls.Add(EmailTextBox);
@@ -109,6 +116,7 @@
             Controls.Add(label1);
             Name = "NewOwnerGroupForm";
             Text = "NewOwnerGroupForm";
+            Load += NewOwnerGroupForm_Load;
             ResumeLayout(false);
             PerformLayout();
         }

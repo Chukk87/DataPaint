@@ -90,7 +90,14 @@ namespace DataPaintDesktop
             }
         }
 
-        private void CreateBaseTemplateBtn_Click(object sender, EventArgs e)
+        private void StartSteps_Click(object sender, EventArgs e)
+        {
+            _orchestratorService.Run(_orientationTemplate.DataInputs);
+
+
+        }
+
+        private void CreateBase_Click(object sender, EventArgs e)
         {
             _orientationTemplate = new OrientationTemplate()
             {
@@ -99,14 +106,7 @@ namespace DataPaintDesktop
 
             ReportNameTextBox.Enabled = false;
             SecurityGroupComboBox.Enabled = false;
-            CreateBaseTemplateBtn.Enabled = false;
-        }
-
-        private void StartSteps_Click(object sender, EventArgs e)
-        {
-            _orchestratorService.Run(_orientationTemplate.DataInputs);
-
-
+            CreateBase.Visible = false;
         }
     }
 }

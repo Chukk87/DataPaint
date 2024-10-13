@@ -40,46 +40,41 @@ namespace DataPaintLibrary.Services.Interfaces
                     case StepType.DuplicateRemoval:
                         formattedTable = RemoveDuplicates(formattedTable, step);
                         break;
-                        // Add additional formatting types as needed
                 }
             }
 
             return formattedTable;
         }
 
+
+        //Logic needs to be added
         private DataTable ApplyFilter(DataTable table, FormattingStep step)
         {
-            // Implement filtering logic based on step parameters
             return table;
         }
 
         private DataTable ApplySort(DataTable table, FormattingStep step)
         {
-            // Implement sorting logic
             return table;
         }
 
         private DataTable ApplyMerge(DataTable table, FormattingStep step)
         {
-            // Implement merging logic
             return table;
         }
 
         private DataTable ApplyGrouping(DataTable table, FormattingStep step)
         {
-            // Implement grouping logic
             return table;
         }
 
         private DataTable ApplyTransformation(DataTable table, FormattingStep step)
         {
-            // Implement transformation logic
             return table;
         }
 
         private DataTable RemoveDuplicates(DataTable table, FormattingStep step)
         {
-            // Implement duplicate removal logic
             return table;
         }
     }

@@ -1,4 +1,5 @@
-﻿using DataPaintLibrary.Classes;
+﻿using DataPaintDesktop.Forms;
+using DataPaintLibrary.Classes;
 using DataPaintLibrary.Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -13,12 +14,14 @@ namespace DataPaintDesktop
         private readonly ILoggerService _loggerService;
         private readonly ISqlService _sqlService;
         private List<OwnerGroup> _ownerGroups;
+        private Home _homeForm;
 
-        public ManageGroupOwner(IAppCollectionService appCollectionService, ILoggerService loggerService, ISqlService sqlService)
+        public ManageGroupOwner(IAppCollectionService appCollectionService, ILoggerService loggerService, ISqlService sqlService, Home homeForm)
         {
             _appCollectionService = appCollectionService;
             _loggerService = loggerService;
             _sqlService = sqlService;
+            _homeForm = homeForm;
 
             InitializeComponent();
 
@@ -26,7 +29,7 @@ namespace DataPaintDesktop
             OwnerGroupListBox.SelectedIndexChanged += OwnerGroupListBox_SelectedIndexChanged;
         }
 
-        private async void ManageGroupOwner_Load(object sender, EventArgs e)
+        internal async void ManageGroupOwner_Load(object sender, EventArgs e)
         {
             try
             {
@@ -53,10 +56,15 @@ namespace DataPaintDesktop
 
         private void CreateNewOwnerGroupBtn_Click(object sender, EventArgs e)
         {
-            NewOwnerGroupForm newOwnerGroupForm = new NewOwnerGroupForm(_loggerService, _sqlService);
-            newOwnerGroupForm.ShowDialog();
 
-            ManageGroupOwner_Load(sender, e);
+        }
+
+        private void NewGroupOwner_Click(object sender, EventArgs e)
+        {
+            var newOwnerGroupForm = new NewOwnerGroupForm(_loggerService, _sqlService, _homeForm, this);
+            _homeForm.LoadFormIntoFooterPanel(newOwnerGroupForm);
+            _homeForm.FooterPanel.Visible = true;
+            _homeForm.FooterControlPanel.Visible = true;
         }
     }
 }

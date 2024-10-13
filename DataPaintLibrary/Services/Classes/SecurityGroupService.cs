@@ -47,7 +47,6 @@ namespace DataPaintLibrary.Services.Classes
         {
             if (!securityGroup.Users.Contains(user.Id))
             {
-                //Add to sql
                 await _sqlService.AddUserToSecurityGroup(securityGroup.Id, user.Id, UserType.User);
             }
         }

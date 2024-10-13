@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
+using DataPaintDesktop.Forms;
+using DataPaintDesktop.Rendering;
 using DataPaintLibrary.Services.Classes;
 using DataPaintLibrary.Services.Interfaces;
 
@@ -27,24 +29,88 @@ namespace DataPaintDesktop
             _orchestratorService = orchestratorService;
             _securityGroupService = securityGroupService;
             _classBuilderService = classBuilderService;
+
+            var overViewForm = new Overview();
+            LoadFormIntoPanel(overViewForm);
         }
 
-        private void ManageGroupOwnerBtn_Click(object sender, EventArgs e)
+        private void Home_Load(object sender, EventArgs e)
         {
-            var manageGroupOwner = new ManageGroupOwner(_appCollectionService, _loggerService, _sqlService);
-            manageGroupOwner.Show();
+            MainMenu.Renderer = new ToolStripRender();
         }
 
-        private void SetupOrientationBtn_Click(object sender, EventArgs e)
+        private void HomeStripButton_Click(object sender, EventArgs e)
         {
-            var orientationSetup = new OrientationSetup(_extractionService, _sqlService, _orchestratorService, _classBuilderService);
-            orientationSetup.Show();
+            var overview = new Overview();
+            LoadFormIntoPanel(overview);
         }
 
-        private void ManageSecurityGroupsBtn_Click(object sender, EventArgs e)
+        private void GroupOwnersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var manageGroupOwner = new ManageGroupOwner(_appCollectionService, _loggerService, _sqlService, this);
+            LoadFormIntoPanel(manageGroupOwner);
+        }
+
+        private void SecurityGroupsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var manageSecurityGroups = new ManageSecurityGroups(_appCollectionService, _loggerService, _sqlService, _securityGroupService);
-            manageSecurityGroups.Show();
+            LoadFormIntoPanel(manageSecurityGroups);
+        }
+
+        private void NewOrientationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Text = "Data Paint - New Orientation";
+
+            var orientationSetup = new OrientationSetup(_extractionService, _sqlService, _orchestratorService, _classBuilderService);
+            LoadFormIntoPanel(orientationSetup);
+        }
+
+        internal void LoadFormIntoPanel(Form form)
+        {
+            FillPanel.Controls.Clear();
+
+            form.TopLevel = false;
+            form.FormBorderStyle = FormBorderStyle.None;
+            form.Dock = DockStyle.Fill;
+
+            FillPanel.Controls.Add(form);
+
+            form.Show();
+        }
+
+        internal void LoadFormIntoFooterPanel(Form form)
+        {
+            FooterPanel.Controls.Clear();
+
+            form.TopLevel = false;
+            form.FormBorderStyle = FormBorderStyle.None;
+            form.Dock = DockStyle.Fill;
+
+            FooterPanel.Controls.Add(form);
+
+            form.Show();
+        }
+
+        private void CollapeTools_Click(object sender, EventArgs e)
+        {
+            ToolPanel.Visible = false;
+        }
+
+        private void ToolStripAuthorisationButton_Click(object sender, EventArgs e)
+        {
+            ToolPanel.Visible = true;
+            ToolTitleLabel.Text = "Authorisation";
+        }
+
+        private void ExportStripButton_Click(object sender, EventArgs e)
+        {
+            ToolPanel.Visible = true;
+            ToolTitleLabel.Text = "Export";
+        }
+
+        private void CollapseFooter_Click(object sender, EventArgs e)
+        {
+            FooterPanel.Visible = false;
         }
     }
 }

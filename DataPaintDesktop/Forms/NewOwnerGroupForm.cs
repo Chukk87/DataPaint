@@ -8,11 +8,15 @@ namespace DataPaintDesktop
     {
         private readonly ILoggerService _loggerService;
         private readonly ISqlService _sqlService;
+        private readonly Home _homeForm;
+        private readonly ManageGroupOwner _manageGroupOwner1Form;
 
-        public NewOwnerGroupForm(ILoggerService loggerService, ISqlService sqlService)
+        public NewOwnerGroupForm(ILoggerService loggerService, ISqlService sqlService, Home homeForm, ManageGroupOwner manageGroupOwner)
         {
             _loggerService = loggerService;
             _sqlService = sqlService;
+            _homeForm = homeForm;
+            _manageGroupOwner1Form = manageGroupOwner;
 
             InitializeComponent();
         }
@@ -30,13 +34,13 @@ namespace DataPaintDesktop
 
             try
             {
-                // Create the owner group asynchronously
                 await _sqlService.CreateOwnerGroup(GroupNameTextBox.Text, EmailTextBox.Text, PhoneTextBox.Text);
 
-                // Notify the user of success
                 MessageBox.Show("Owner group created successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                // Optionally, clear the fields or close the form
+                _manageGroupOwner1Form.ManageGroupOwner_Load(sender, e);
+                _homeForm.FooterPanel.Visible = false;
+
                 this.Close();
             }
             catch (Exception ex)
@@ -45,6 +49,11 @@ namespace DataPaintDesktop
                 _loggerService.RecordException(ex, nameof(CreateNewOwnerGroupBtn_Click));
                 MessageBox.Show("An error occurred while creating the owner group. Please try again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void NewOwnerGroupForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
