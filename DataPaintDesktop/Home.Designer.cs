@@ -70,7 +70,8 @@ namespace DataPaintDesktop
             FooterPanel = new System.Windows.Forms.Panel();
             FooterControlPanel = new System.Windows.Forms.Panel();
             CollapseFooter = new System.Windows.Forms.PictureBox();
-            FillPanel = new System.Windows.Forms.Panel();
+            PrimaryPanel = new System.Windows.Forms.Panel();
+            SecondaryPanel = new System.Windows.Forms.Panel();
             MainMenu.SuspendLayout();
             statusStrip1.SuspendLayout();
             toolStrip1.SuspendLayout();
@@ -409,15 +410,24 @@ namespace DataPaintDesktop
             CollapseFooter.TabStop = false;
             CollapseFooter.Click += CollapseFooter_Click;
             // 
-            // FillPanel
+            // PrimaryPanel
             // 
-            FillPanel.AutoScroll = true;
-            FillPanel.AutoSize = true;
-            FillPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            FillPanel.Location = new System.Drawing.Point(0, 49);
-            FillPanel.Name = "FillPanel";
-            FillPanel.Size = new System.Drawing.Size(732, 370);
-            FillPanel.TabIndex = 10;
+            PrimaryPanel.AutoScroll = true;
+            PrimaryPanel.AutoSize = true;
+            PrimaryPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            PrimaryPanel.Location = new System.Drawing.Point(0, 49);
+            PrimaryPanel.Name = "PrimaryPanel";
+            PrimaryPanel.Size = new System.Drawing.Size(732, 370);
+            PrimaryPanel.TabIndex = 10;
+            // 
+            // SecondaryPanel
+            // 
+            SecondaryPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            SecondaryPanel.Location = new System.Drawing.Point(0, 49);
+            SecondaryPanel.Name = "SecondaryPanel";
+            SecondaryPanel.Size = new System.Drawing.Size(732, 370);
+            SecondaryPanel.TabIndex = 11;
+            SecondaryPanel.Visible = false;
             // 
             // Home
             // 
@@ -425,7 +435,8 @@ namespace DataPaintDesktop
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.Color.FromArgb(37, 37, 38);
             ClientSize = new System.Drawing.Size(944, 541);
-            Controls.Add(FillPanel);
+            Controls.Add(SecondaryPanel);
+            Controls.Add(PrimaryPanel);
             Controls.Add(FooterPanel);
             Controls.Add(ToolPanel);
             Controls.Add(toolStrip1);
@@ -489,13 +500,14 @@ namespace DataPaintDesktop
         private System.Windows.Forms.Panel ToolPanel;
         private System.Windows.Forms.PictureBox CollapseTools;
         private System.Windows.Forms.Panel ToolPanelControl;
-        private System.Windows.Forms.Panel FillPanel;
+        private System.Windows.Forms.Panel PrimaryPanel;
         private System.Windows.Forms.Panel ToolPanelManage;
         private System.Windows.Forms.Label ToolTitleLabel;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem1;
         internal System.Windows.Forms.Panel FooterPanel;
         private System.Windows.Forms.PictureBox CollapseFooter;
         internal System.Windows.Forms.Panel FooterControlPanel;
+        internal System.Windows.Forms.Panel SecondaryPanel;
     }
 }
 

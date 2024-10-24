@@ -10,6 +10,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DataPaintDesktop.Forms.OrientationForms;
 
 namespace DataPaintDesktop
 {
@@ -19,18 +20,20 @@ namespace DataPaintDesktop
         private readonly ISqlService _sqlService;
         private readonly IClassBuilderService _classBuilderService;
         private readonly IOrchestratorService _orchestratorService;
+        private readonly Home _homeForm;
 
         private OrientationTemplate _orientationTemplate;
         List<OwnerGroup> _ownersGroup;
         List<SecurityGroup> _securityGroups;
 
         public OrientationSetup(IDataExtractionService dataExtractionService, ISqlService sqlService, IOrchestratorService orchestratorService,
-                                IClassBuilderService classBuilderService)
+                                IClassBuilderService classBuilderService, Home homeForm)
         {
             _extractionService = dataExtractionService;
             _sqlService = sqlService;
             _orchestratorService = orchestratorService;
             _classBuilderService = classBuilderService;
+            _homeForm = homeForm;
 
             InitializeComponent();
         }
@@ -68,28 +71,6 @@ namespace DataPaintDesktop
             InputTypeComboBox.DataSource = Enum.GetValues(typeof(ExtractionType)).Cast<ExtractionType>().ToList();
         }
 
-        private void FindDirectoryBtn_Click(object sender, EventArgs e)
-        {
-            var findFileDialog = new OpenFileDialog();
-            findFileDialog.ShowDialog();
-
-            var excelDataSet = _extractionService.GetExcelDataSet(findFileDialog.FileName);
-            var dataInput = new DataInput(InputDataNameTextBox.Text, 0, ExtractionType.Excel, DataType.Dynamic, findFileDialog.FileName);
-
-            ExcelVisualiser excelVisualiser = new ExcelVisualiser(_orchestratorService, _orientationTemplate, excelDataSet, dataInput);
-            excelVisualiser.ShowDialog();
-
-            if (excelVisualiser.ShowDialog() == DialogResult.OK)
-            {
-                InputDataListBox.Items.Clear();
-
-                foreach (var di in _orientationTemplate.DataInputs)
-                {
-                    InputDataListBox.Items.Add(di.Name);
-                }
-            }
-        }
-
         private void StartSteps_Click(object sender, EventArgs e)
         {
             _orchestratorService.Run(_orientationTemplate.DataInputs);
@@ -107,6 +88,47 @@ namespace DataPaintDesktop
             ReportNameTextBox.Enabled = false;
             SecurityGroupComboBox.Enabled = false;
             CreateBase.Visible = false;
+        }
+
+        private void InputTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var inputType = (ExtractionType)InputTypeComboBox.SelectedItem;
+
+            switch (inputType)
+            {
+                case ExtractionType.Api:
+                    break;
+
+                case ExtractionType.Excel:
+                    LoadFormIntoExtractionPanel(new ExcelExtractionForm(this, _homeForm, _orchestratorService, _extractionService, _orientationTemplate));
+                    break;
+
+                case ExtractionType.TextTab:
+                    break;
+
+                case ExtractionType.TextDelimiter:
+                    break;
+
+                case ExtractionType.CSV:
+                    break;
+
+                default:
+                    MessageBox.Show("Please select a valid extraction type");
+                    break;
+            }
+        }
+
+        internal void LoadFormIntoExtractionPanel(Form form)
+        {
+            ExtractionPanel.Controls.Clear();
+
+            form.TopLevel = false;
+            form.FormBorderStyle = FormBorderStyle.None;
+            form.Dock = DockStyle.Fill;
+
+            ExtractionPanel.Controls.Add(form);
+
+            form.Show();
         }
     }
 }

@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataPaintLibraryTests", "Da
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataPaintDesktop", "DataPaintDesktop\DataPaintDesktop.csproj", "{30B28407-6DCC-40D9-88C3-671B01E1BB1E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataPaintApp", "DataPaintApp\DataPaintApp.csproj", "{D3DD5C66-53DB-43F6-BDF9-16A3FC37F3BC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataPaintWebApp", "DataPaintWebApp\DataPaintWebApp.csproj", "{06279926-8847-4F0A-A534-09E4E72D3D4D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,10 +37,10 @@ Global
 		{30B28407-6DCC-40D9-88C3-671B01E1BB1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{30B28407-6DCC-40D9-88C3-671B01E1BB1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{30B28407-6DCC-40D9-88C3-671B01E1BB1E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D3DD5C66-53DB-43F6-BDF9-16A3FC37F3BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D3DD5C66-53DB-43F6-BDF9-16A3FC37F3BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D3DD5C66-53DB-43F6-BDF9-16A3FC37F3BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D3DD5C66-53DB-43F6-BDF9-16A3FC37F3BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06279926-8847-4F0A-A534-09E4E72D3D4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06279926-8847-4F0A-A534-09E4E72D3D4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06279926-8847-4F0A-A534-09E4E72D3D4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06279926-8847-4F0A-A534-09E4E72D3D4D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -28,8 +28,6 @@ namespace DataPaintLibrary.Classes
             get => _name;
             set
             {
-                if (string.IsNullOrWhiteSpace(value))
-                    throw new ArgumentException("Name cannot be null or empty.", nameof(value));
                 _name = value;
             }
         }
@@ -46,6 +44,13 @@ namespace DataPaintLibrary.Classes
         {
             get => _phoneNumber;
             set => _phoneNumber = value;
+        }
+
+        public OwnerGroup()
+        {
+            Name = string.Empty;
+            ContactEmail = string.Empty;
+            PhoneNumber = string.Empty;
         }
 
         public OwnerGroup(int id, string name, string contactEmail = null, string phoneNumber = null)

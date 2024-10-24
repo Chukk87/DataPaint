@@ -1,0 +1,122 @@
+﻿@using DataPaintLibrary.Classes
+@using DataPaintLibrary.Classes.Input
+@model List<SecurityGroup>
+
+<h1>Manage Security Groups</h1>
+
+<div class="row">
+    <!-- Select Security Group -->
+    <div class="col-md-6">
+        <label for="securityGroupSelect">Select Security Group:</label>
+        <select id="securityGroupSelect" class="form-control">
+            <option value="">--Select a Group--</option>
+            @foreach (var group in Model)
+            {
+                <option value="@group.Id">@group.GroupName</option>
+            }
+        </select>
+    </div>
+
+    <!-- Visible to All Checkbox -->
+    <div class="col-md-6">
+        <label>
+            <input type="checkbox" id="visibleToAll" /> Visible to All
+        </label>
+    </div>
+</div>
+
+<hr />
+
+@* <!-- Security Type Radio Buttons -->
+<div class="row">
+    <div class="col-md-6">
+        <label>Security Type:</label><br />
+        <label>
+            <input type="radio" name="securityType" value="NoSecurity" /> No Security
+        </label><br />
+        <label>
+            <input type="radio" name="securityType" value="GroupUserOnly" /> Group User Run Only
+        </label>
+    </div>
+
+    <!-- Authorization Type Radio Buttons -->
+    <div class="col-md-6">
+        <label>Authorization Type:</label><br />
+        <label>
+            <input type="radio" name="authorizationType" value="Type1" /> Authorization Type 1
+        </label><br />
+        <label>
+            <input type="radio" name="authorizationType" value="Type2" /> Authorization Type 2
+        </label>
+    </div>
+</div>
+
+<hr />
+
+<!-- List of Admins and Users -->
+<div class="row">
+    <div class="col-md-6">
+        <label for="adminsListBox">Admins:</label>
+        <select id="adminsListBox" class="form-control" size="8"></select>
+
+        <label for="addAdminDropdown">Add Admin:</label>
+        <select id="addAdminDropdown" class="form-control">
+            <option value="">--Select Admin--</option>
+            <!-- Populate with available admins -->
+        </select>
+
+        <button class="btn btn-primary mt-2" onclick="addAdmin()">Add Admin</button>
+    </div>
+
+    <div class="col-md-6">
+        <label for="usersListBox">Users:</label>
+        <select id="usersListBox" class="form-control" size="8"></select>
+
+        <label for="addUserDropdown">Add User:</label>
+        <select id="addUserDropdown" class="form-control">
+            <option value="">--Select User--</option>
+            <!-- Populate with available users -->
+        </select>
+
+        <button class="btn btn-primary mt-2" onclick="addUser()">Add User</button>
+    </div>
+</div>
+
+<hr />
+
+<!-- Buttons to Create, Update, and Delete Security Group -->
+<div class="row">
+    <div class="col-md-4">
+        <button class="btn btn-success" onclick="createSecurityGroup()">Create Group</button>
+    </div>
+    <div class="col-md-4">
+        <button class="btn btn-warning" onclick="updateSecurityGroup()">Update Group</button>
+    </div>
+    <div class="col-md-4">
+        <button class="btn btn-danger" onclick="deleteSecurityGroup()">Delete Group</button>
+    </div>
+</div>
+
+<script>
+    // JavaScript functions to handle creating, updating, and deleting groups
+    function createSecurityGroup() {
+        // Implement create logic
+    }
+
+    function updateSecurityGroup() {
+        // Implement update logic
+    }
+
+    function deleteSecurityGroup() {
+        // Implement delete logic
+    }
+
+    function addAdmin() {
+        // Add selected admin to the list
+    }
+
+    function addUser() {
+        // Add selected user to the list
+    }
+</script>
+ *@

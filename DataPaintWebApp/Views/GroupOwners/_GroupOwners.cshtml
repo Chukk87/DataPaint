@@ -1,0 +1,165 @@
+﻿@using DataPaintLibrary.Classes
+@model List<OwnerGroup>
+
+<h1>Group Owners</h1>
+<p>
+    List of available Owner Groups; the owner groups are used to identify who owns the specific input data and can be assigned during the orientation setups to build reports.
+    This can be helpful when data goes missing or something changes unexpectedly.
+</p>
+
+<div class="row">
+    <!-- Left Panel for Available Groups -->
+    <div class="col-md-4">
+        <label for="groupListBox">Available Groups:</label>
+        <select id="groupListBox" class="form-control" size="10" onchange="loadGroupDetails()">
+            @foreach (var group in Model)
+            {
+                <option value="@group.Id">@group.Name</option>
+            }
+        </select>
+        <button class="btn btn-primary mt-2" onclick="enableAddNewGroup()">Add New Group</button>
+    </div>
+
+    <!-- Right Panel for Details and Editing -->
+    <div class="col-md-8">
+        <form id="groupForm">
+            <label for="groupName">Group Name:</label>
+            <input type="text" id="groupName" class="form-control" />
+
+            <label for="contactEmail">Contact Email:</label>
+            <input type="email" id="contactEmail" class="form-control" />
+
+            <label for="phoneNumber">Phone Number:</label>
+            <input type="tel" id="phoneNumber" class="form-control" />
+
+            <!-- Save Group Button -->
+            <button type="button" class="btn btn-success mt-3" onclick="saveGroup()">Save Group</button>
+
+            <!-- Delete Group Button -->
+            <button type="button" class="btn btn-danger mt-3" onclick="deleteGroup()">Delete Group</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    var isEditing = false;
+    var currentGroupId = 0;
+
+    $('#groupListBox').change(function () {
+        currentGroupId = $(this).val(); // Set currentGroupId to the selected value
+    });
+
+    function loadGroupDetails() {
+        currentGroupId = document.getElementById('groupListBox').value;
+
+        if (currentGroupId) {
+            isEditing = true;  // Set editing mode
+            $.ajax({
+                url: '@Url.Action("GetGroupDetails", "GroupOwners")', // Ensure this URL points to the correct action
+                type: 'GET',
+                data: { id: currentGroupId },
+                success: function (data) {
+                    $('#groupName').val(data.name);
+                    $('#contactEmail').val(data.email);
+                    $('#phoneNumber').val(data.phone);
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error loading group details: " + error);
+                }
+            });
+        } else {
+            clearFormFields();
+        }
+    }
+
+    function enableAddNewGroup() {
+        clearFormFields();
+        isEditing = false;  // Set add new mode
+        currentGroupId = null;
+    }
+
+    function saveGroup() {
+        currentGroupId = document.getElementById('groupListBox').value;
+
+        var groupData = {
+            Id: currentGroupId ? parseInt(currentGroupId) : 999999,
+            Name: $('#groupName').val(),
+            ContactEmail: $('#contactEmail').val(),
+            PhoneNumber: $('#phoneNumber').val()
+        };
+
+        var url = isEditing ? '@Url.Action("UpdateOwnerGroup", "GroupOwners")' : '@Url.Action("CreateOwnerGroup", "GroupOwners")';
+
+        $.ajax({
+            url: url,
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(groupData),
+            success: function () {
+                alert("Group saved successfully!");
+                refreshGroupList(); // Refresh the list box
+                clearFormFields();  // Clear form fields after deleting
+            },
+            error: function (xhr, status, error) {
+                console.error("Error saving group: " + error);
+            }
+        });
+
+        loadGroupDetails();
+    }
+
+    function deleteGroup() {
+        currentGroupId = document.getElementById('groupListBox').value;
+
+        var groupData = {
+            Id: parseInt(currentGroupId),
+            Name: $('#groupName').val(),
+            ContactEmail: $('#contactEmail').val(),
+            PhoneNumber: $('#phoneNumber').val()
+        };
+
+        if (currentGroupId && confirm("Are you sure you want to delete this group?")) {
+            $.ajax({
+                url: '@Url.Action("DeleteOwnerGroup", "GroupOwners")',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(groupData),
+                success: function () {
+                    alert("Group deleted successfully!");
+                    refreshGroupList(); // Refresh the list box
+                    clearFormFields();  // Clear form fields after deleting
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error deleting group: " + error);
+                }
+            });
+        }
+
+        loadGroupDetails();
+    }
+
+    function clearFormFields() {
+        $('#groupName').val('');
+        $('#contactEmail').val('');
+        $('#phoneNumber').val('');
+    }
+
+    function refreshGroupList() {
+        $.ajax({
+            url: '@Url.Action("GetAllOwnerGroups", "GroupOwners")', // Replace with the correct action that returns the updated list of groups
+            type: 'GET',
+            success: function (groups) {
+                var groupListBox = $('#groupListBox');
+                groupListBox.empty(); // Clear the existing list
+
+                // Repopulate the list box with the updated group data
+                $.each(groups, function (index, group) {
+                    groupListBox.append($('<option></option>').val(group.id).text(group.name));
+                });
+            },
+            error: function (xhr, status, error) {
+                console.error("Error refreshing group list: " + error);
+            }
+        });
+    }
+</script>

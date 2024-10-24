@@ -31,7 +31,7 @@ namespace DataPaintDesktop
             _classBuilderService = classBuilderService;
 
             var overViewForm = new Overview();
-            LoadFormIntoPanel(overViewForm);
+            LoadFormIntoPrimaryPanel(overViewForm);
         }
 
         private void Home_Load(object sender, EventArgs e)
@@ -42,39 +42,54 @@ namespace DataPaintDesktop
         private void HomeStripButton_Click(object sender, EventArgs e)
         {
             var overview = new Overview();
-            LoadFormIntoPanel(overview);
+            LoadFormIntoPrimaryPanel(overview);
         }
 
         private void GroupOwnersToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var manageGroupOwner = new ManageGroupOwner(_appCollectionService, _loggerService, _sqlService, this);
-            LoadFormIntoPanel(manageGroupOwner);
+            LoadFormIntoPrimaryPanel(manageGroupOwner);
         }
 
         private void SecurityGroupsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var manageSecurityGroups = new ManageSecurityGroups(_appCollectionService, _loggerService, _sqlService, _securityGroupService);
-            LoadFormIntoPanel(manageSecurityGroups);
+            LoadFormIntoPrimaryPanel(manageSecurityGroups);
         }
 
         private void NewOrientationToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Text = "Data Paint - New Orientation";
 
-            var orientationSetup = new OrientationSetup(_extractionService, _sqlService, _orchestratorService, _classBuilderService);
-            LoadFormIntoPanel(orientationSetup);
+            var orientationSetup = new OrientationSetup(_extractionService, _sqlService, _orchestratorService, _classBuilderService, this);
+            LoadFormIntoPrimaryPanel(orientationSetup);
         }
 
-        internal void LoadFormIntoPanel(Form form)
+        internal void LoadFormIntoPrimaryPanel(Form form)
         {
-            FillPanel.Controls.Clear();
+            PrimaryPanel.Controls.Clear();
 
             form.TopLevel = false;
             form.FormBorderStyle = FormBorderStyle.None;
             form.Dock = DockStyle.Fill;
 
-            FillPanel.Controls.Add(form);
+            PrimaryPanel.Controls.Add(form);
 
+            SecondaryPanel.Visible = false;
+            form.Show();
+        }
+
+        internal void LoadFormIntoSecondaryPanel(Form form)
+        {
+            SecondaryPanel.Controls.Clear();
+
+            form.TopLevel = false;
+            form.FormBorderStyle = FormBorderStyle.None;
+            form.Dock = DockStyle.Fill;
+
+            SecondaryPanel.Controls.Add(form);
+
+            PrimaryPanel.Visible = false;
             form.Show();
         }
 

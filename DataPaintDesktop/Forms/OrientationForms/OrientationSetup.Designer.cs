@@ -38,9 +38,6 @@
             InputDataNameTextBox = new System.Windows.Forms.TextBox();
             label5 = new System.Windows.Forms.Label();
             InputTypeComboBox = new System.Windows.Forms.ComboBox();
-            textBox2 = new System.Windows.Forms.TextBox();
-            label6 = new System.Windows.Forms.Label();
-            FindDirectoryBtn = new System.Windows.Forms.Button();
             SelectedSheetListBox = new System.Windows.Forms.CheckedListBox();
             label7 = new System.Windows.Forms.Label();
             label9 = new System.Windows.Forms.Label();
@@ -66,18 +63,17 @@
             CreateBase = new System.Windows.Forms.Button();
             pictureBox1 = new System.Windows.Forms.PictureBox();
             InputPanel = new System.Windows.Forms.Panel();
-            pictureBox2 = new System.Windows.Forms.PictureBox();
+            ExtractionPanel = new System.Windows.Forms.Panel();
             InputDetailPanel = new System.Windows.Forms.Panel();
-            ExcelFilePanel = new System.Windows.Forms.Panel();
+            pictureBox2 = new System.Windows.Forms.PictureBox();
             TopPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)FormIcon).BeginInit();
             FormControlPanel.SuspendLayout();
             NamePanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             InputPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             InputDetailPanel.SuspendLayout();
-            ExcelFilePanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             SuspendLayout();
             // 
             // label2
@@ -161,33 +157,7 @@
             InputTypeComboBox.Name = "InputTypeComboBox";
             InputTypeComboBox.Size = new System.Drawing.Size(216, 23);
             InputTypeComboBox.TabIndex = 9;
-            // 
-            // textBox2
-            // 
-            textBox2.Location = new System.Drawing.Point(67, 9);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new System.Drawing.Size(239, 23);
-            textBox2.TabIndex = 11;
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.ForeColor = System.Drawing.SystemColors.ButtonShadow;
-            label6.Location = new System.Drawing.Point(6, 9);
-            label6.Name = "label6";
-            label6.Size = new System.Drawing.Size(55, 15);
-            label6.TabIndex = 10;
-            label6.Text = "Directory";
-            // 
-            // FindDirectoryBtn
-            // 
-            FindDirectoryBtn.Location = new System.Drawing.Point(285, 38);
-            FindDirectoryBtn.Name = "FindDirectoryBtn";
-            FindDirectoryBtn.Size = new System.Drawing.Size(21, 23);
-            FindDirectoryBtn.TabIndex = 12;
-            FindDirectoryBtn.Text = "button2";
-            FindDirectoryBtn.UseVisualStyleBackColor = true;
-            FindDirectoryBtn.Click += FindDirectoryBtn_Click;
+            InputTypeComboBox.SelectedIndexChanged += InputTypeComboBox_SelectedIndexChanged;
             // 
             // SelectedSheetListBox
             // 
@@ -427,7 +397,7 @@
             // 
             // InputPanel
             // 
-            InputPanel.Controls.Add(ExcelFilePanel);
+            InputPanel.Controls.Add(ExtractionPanel);
             InputPanel.Controls.Add(InputDetailPanel);
             InputPanel.Dock = System.Windows.Forms.DockStyle.Top;
             InputPanel.Location = new System.Drawing.Point(0, 114);
@@ -435,15 +405,13 @@
             InputPanel.Size = new System.Drawing.Size(1388, 100);
             InputPanel.TabIndex = 31;
             // 
-            // pictureBox2
+            // ExtractionPanel
             // 
-            pictureBox2.Image = (System.Drawing.Image)resources.GetObject("pictureBox2.Image");
-            pictureBox2.Location = new System.Drawing.Point(4, 3);
-            pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new System.Drawing.Size(29, 29);
-            pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            pictureBox2.TabIndex = 32;
-            pictureBox2.TabStop = false;
+            ExtractionPanel.Dock = System.Windows.Forms.DockStyle.Left;
+            ExtractionPanel.Location = new System.Drawing.Point(364, 0);
+            ExtractionPanel.Name = "ExtractionPanel";
+            ExtractionPanel.Size = new System.Drawing.Size(317, 100);
+            ExtractionPanel.TabIndex = 34;
             // 
             // InputDetailPanel
             // 
@@ -460,16 +428,15 @@
             InputDetailPanel.Size = new System.Drawing.Size(364, 100);
             InputDetailPanel.TabIndex = 33;
             // 
-            // ExcelFilePanel
+            // pictureBox2
             // 
-            ExcelFilePanel.Controls.Add(label6);
-            ExcelFilePanel.Controls.Add(textBox2);
-            ExcelFilePanel.Controls.Add(FindDirectoryBtn);
-            ExcelFilePanel.Dock = System.Windows.Forms.DockStyle.Left;
-            ExcelFilePanel.Location = new System.Drawing.Point(364, 0);
-            ExcelFilePanel.Name = "ExcelFilePanel";
-            ExcelFilePanel.Size = new System.Drawing.Size(317, 100);
-            ExcelFilePanel.TabIndex = 34;
+            pictureBox2.Image = (System.Drawing.Image)resources.GetObject("pictureBox2.Image");
+            pictureBox2.Location = new System.Drawing.Point(4, 3);
+            pictureBox2.Name = "pictureBox2";
+            pictureBox2.Size = new System.Drawing.Size(29, 29);
+            pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            pictureBox2.TabIndex = 32;
+            pictureBox2.TabStop = false;
             // 
             // OrientationSetup
             // 
@@ -506,11 +473,9 @@
             NamePanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             InputPanel.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             InputDetailPanel.ResumeLayout(false);
             InputDetailPanel.PerformLayout();
-            ExcelFilePanel.ResumeLayout(false);
-            ExcelFilePanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -520,14 +485,9 @@
         private System.Windows.Forms.ListBox InputDataListBox;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button StartSteps;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox InputTypeComboBox;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.ComboBox GroupOwnerComboBox;
-        private System.Windows.Forms.TextBox InputDataNameTextBox;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button FindDirectoryBtn;
         private System.Windows.Forms.CheckedListBox SelectedSheetListBox;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label9;
@@ -554,7 +514,9 @@
         private System.Windows.Forms.Button CreateBase;
         private System.Windows.Forms.Panel InputPanel;
         private System.Windows.Forms.PictureBox pictureBox2;
-        private System.Windows.Forms.Panel ExcelFilePanel;
+        private System.Windows.Forms.Panel ExtractionPanel;
         private System.Windows.Forms.Panel InputDetailPanel;
+        internal System.Windows.Forms.ComboBox GroupOwnerComboBox;
+        internal System.Windows.Forms.TextBox InputDataNameTextBox;
     }
 }

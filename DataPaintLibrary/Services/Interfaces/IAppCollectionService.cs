@@ -18,6 +18,7 @@ namespace DataPaintLibrary.Services.Interfaces
         /// </summary>
         /// <returns></returns>
         Task<List<OwnerGroup>> GetAllOwnerGroups();
+        Task<OwnerGroup> GetOwnerGroupById(int id);
         Task<List<SecurityGroup>> GetSecurityGroups();
         /// <summary>
         /// Gets a list of all data inputs

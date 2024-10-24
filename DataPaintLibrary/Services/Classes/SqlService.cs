@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Collections.Generic;
 using DataPaintLibrary.Classes.Input;
 using DataPaintLibrary.Enums;
+using DataPaintLibrary.Classes;
 
 namespace DataPaintLibrary.Services.Classes
 {
@@ -102,6 +103,16 @@ namespace DataPaintLibrary.Services.Classes
             return await ExecuteQueryAsync("[App].[GetOwnerGroups]");
         }
 
+        public async Task<DataTable> GetOwnerGroup(int id)
+        {
+            var parameters = new[]
+{
+                new SqlParameter("@Id", id),
+            };
+
+            return await ExecuteQueryAsync("[App].[GetOwnerGroup]", parameters);
+        }
+
         public async Task CreateOwnerGroup(string name, string contactEmail, string phoneNumber)
         {
             var parameters = new[]
@@ -114,6 +125,71 @@ namespace DataPaintLibrary.Services.Classes
 
             // Execute the stored procedure to create the owner group
             await ExecuteNonQueryAsync("App.CreateOwnerGroup", parameters);
+
+
+            var errorCode = (int)parameters[3].Value;
+
+            if (errorCode != 0)
+            {
+                throw new Exception($"Stored Procedure Error: {errorCode}");
+            }
+        }
+
+        public async Task CreateOwnerGroup(OwnerGroup ownerGroup)
+        {
+            var parameters = new[]
+            {
+                new SqlParameter("@GroupName", ownerGroup.Name),
+                new SqlParameter("@ContactEmail", ownerGroup.ContactEmail),
+                new SqlParameter("@PhoneNumber", ownerGroup.PhoneNumber),
+                new SqlParameter("@ErrorCode", SqlDbType.Int) { Direction = ParameterDirection.Output }
+            };
+
+            // Execute the stored procedure to create the owner group
+            await ExecuteNonQueryAsync("App.CreateOwnerGroup", parameters);
+
+
+            var errorCode = (int)parameters[3].Value;
+
+            if (errorCode != 0)
+            {
+                throw new Exception($"Stored Procedure Error: {errorCode}");
+            }
+        }
+
+        public async Task UpdateOwnerGroup(OwnerGroup ownerGroup)
+        {
+            var parameters = new[]
+            {
+                new SqlParameter("@Id", ownerGroup.Id),
+                new SqlParameter("@GroupName", ownerGroup.Name),
+                new SqlParameter("@ContactEmail", ownerGroup.ContactEmail),
+                new SqlParameter("@PhoneNumber", ownerGroup.PhoneNumber),
+                new SqlParameter("@ErrorCode", SqlDbType.Int) { Direction = ParameterDirection.Output }
+            };
+
+            // Execute the stored procedure to create the owner group
+            await ExecuteNonQueryAsync("App.UpdateOwnerGroup", parameters);
+
+
+            var errorCode = (int)parameters[3].Value;
+
+            if (errorCode != 0)
+            {
+                throw new Exception($"Stored Procedure Error: {errorCode}");
+            }
+        }
+
+        public async Task DeleteOwnerGroup(OwnerGroup ownerGroup)
+        {
+            var parameters = new[]
+            {
+                new SqlParameter("@Id", ownerGroup.Id),
+                new SqlParameter("@ErrorCode", SqlDbType.Int) { Direction = ParameterDirection.Output }
+            };
+
+            // Execute the stored procedure to create the owner group
+            await ExecuteNonQueryAsync("App.DeleteOwnerGroup", parameters);
 
 
             var errorCode = (int)parameters[3].Value;

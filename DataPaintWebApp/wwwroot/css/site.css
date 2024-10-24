@@ -1,0 +1,68 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+body {
+    background-color: rgb(37, 37, 38);
+    color: #a9a9a9; /* ButtonShadow color */
+}
+
+.navbar {
+    background-color: rgb(31, 31, 31); /* Set the navbar background color */
+    color: #a9a9a9; /* Set the navbar text color */
+}
+
+    .navbar .nav-link {
+        color: #a9a9a9; /* Set the color for navigation links */
+    }
+
+        .navbar .nav-link:hover {
+            color: white; /* Optional: Change the link color on hover */
+        }
+
+.footer {
+    background-color: rgb(61, 61, 61);
+}
+
+.btn {
+    background-color: rgb(56, 56, 56);
+    color: #a9a9a9; /* ButtonShadow color */
+}
+
+input[type="text"],
+select,
+textarea {
+    background-color: rgb(56, 56, 56);
+    color: #a9a9a9; /* ButtonShadow color */
+}
+
+.form-control {
+    background-color: rgb(56, 56, 56);
+    color: #a9a9a9; /* ButtonShadow color */
+    border: 1px solid #a9a9a9; /* Optional border color */
+}
+
+    .form-control:focus {
+        background-color: rgb(56, 56, 56);
+        color: #a9a9a9; /* ButtonShadow color */
+        border-color: #a9a9a9; /* Optional border color */
+    }

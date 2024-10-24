@@ -80,6 +80,8 @@
     <Build Include="Tables\UserSecurity.sql" />
     <Build Include="StoredProcedures\GetUserSecurity.sql" />
     <Build Include="StoredProcedures\AddUserToSecurityGroup.sql" />
+    <Build Include="StoredProcedures\UpdateSecurityGroup.sql" />
+    <Build Include="StoredProcedures\GetOwnerGroup.sql" />
     <Build Include="StoredProcedures\UpdateOwnerGroup.sql" />
   </ItemGroup>
 </Project>

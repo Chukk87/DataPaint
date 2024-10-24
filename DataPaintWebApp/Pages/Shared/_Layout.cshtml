@@ -1,0 +1,112 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - DataPaintWebApp</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/DataPaintWebApp.styles.css" asp-append-version="true" />
+    <style>
+        body {
+            background-color: rgb(37, 37, 38);
+        }
+
+        nav.navbar {
+            background-color: rgb(31, 31, 31);
+        }
+
+        footer {
+            background-color: rgb(61, 61, 61);
+        }
+
+        .btn, .form-control, .listbox {
+            background-color: rgb(56, 56, 56);
+            color: ButtonShadow;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <!-- Toolbar -->
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">DataPaintWebApp</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Index">Home</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownManagement" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Management
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownManagement">
+                                <li><a class="dropdown-item" onclick="loadGroupOwners()">Group Owners</a></li>
+                                <li><a class="dropdown-item" onclick="loadSecurityGroups()">Security Groups</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownManagement" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Reporting
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownManagement">
+                                <li><a class="dropdown-item" href="/Logs">View Application Logs</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div id="primaryPanel">
+            @RenderBody()
+        </div>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2024 - DataPaintWebApp - <a asp-area="" asp-page="/Privacy">Privacy</a>
+        </div>
+    </footer>
+</body>
+
+    <!-- JavaScript -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script>
+    function loadGroupOwners() {
+        $.ajax({
+            url: '@Url.Action("LoadGroupOwners", "GroupOwners")',
+            type: 'GET',
+            success: function (result) {
+                $('#primaryPanel').html(result);
+            },
+            error: function (xhr, status, error) {
+                console.error("Error loading Group Owners: " + error);
+            }
+        });
+    }
+
+    function loadSecurityGroups() {
+        $.ajax({
+            url: '@Url.Action("LoadSecurityGroups", "SecurityGroups")',
+            type: 'GET',
+            success: function (result) {
+                $('#primaryPanel').html(result);
+            },
+            error: function (xhr, status, error) {
+                console.error("Error loading Security Groups: " + error);
+            }
+        });
+    }
+    </script>
+</html>

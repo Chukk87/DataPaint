@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using DataPaintLibrary.Classes;
 using DataPaintLibrary.Classes.Input;
+using System.Linq;
 
 namespace DataPaintLibrary.Services.Classes
 {
@@ -44,6 +45,14 @@ namespace DataPaintLibrary.Services.Classes
             _ownerGroups = _classBuilderService.BuildOwnerGroups(ownerGroupsTable);
 
             return _ownerGroups;
+        }
+
+        public async Task<OwnerGroup> GetOwnerGroupById(int id)
+        {
+            var ownerGroupTable = await _sqlService.GetOwnerGroup(id);
+            var _ownerGroup = _classBuilderService.BuildOwnerGroups(ownerGroupTable).FirstOrDefault();
+
+            return _ownerGroup;
         }
 
         public async Task<List<SecurityGroup>> GetSecurityGroups()

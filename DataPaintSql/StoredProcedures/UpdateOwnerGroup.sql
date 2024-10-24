@@ -1,9 +1,8 @@
-﻿CREATE PROCEDURE App.UpdateSecurityGroup
-    @SecurityGroupId UNIQUEIDENTIFIER,
-    @SecurityGroupName NVARCHAR(100),
-    @SecurityType INT,
-    @AuthorisationType INT,
-    @VisibleToAll BIT,
+﻿CREATE PROCEDURE App.UpdateOwnerGroup
+    @Id INT,
+    @GroupName NVARCHAR(50),
+    @ContactEmail NVARCHAR(320),
+    @PhoneNumber NVARCHAR(100),
     @ErrorCode INT OUTPUT
 AS
 BEGIN
@@ -12,13 +11,12 @@ BEGIN
     BEGIN TRY
         BEGIN TRANSACTION;
 
-        UPDATE App.SecurityGroups
+        UPDATE App.OwnerGroups
         SET 
-            SecurityGroupName = @SecurityGroupName,
-            SecurityType = @SecurityType,
-            AuthorisationType = @AuthorisationType,
-            VisibleToAll = @VisibleToAll
-        WHERE Id = @SecurityGroupId;
+            GroupName = @GroupName,
+            ContactEmail = @ContactEmail,
+            PhoneNumber = @PhoneNumber
+        WHERE Id = @Id;
 
         COMMIT TRANSACTION;
 
@@ -28,7 +26,6 @@ BEGIN
     BEGIN CATCH
         ROLLBACK TRANSACTION;
 
-        SELECT ERROR_NUMBER() AS ErrorNumber, ERROR_MESSAGE() AS ErrorMessage;
         SET @ErrorCode = ERROR_NUMBER();
     END CATCH;
 END;
