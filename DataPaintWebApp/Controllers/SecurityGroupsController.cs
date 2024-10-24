@@ -2,14 +2,14 @@
 using Microsoft.AspNetCore.Mvc;
 
 [Route("SecurityGroups")]
-public class SecurityGroupController : Controller
+public class SecurityGroupsController : Controller
 {
     private readonly IAppCollectionService _appCollectionService;
     private readonly ILoggerService _loggerService;
     private readonly ISqlService _sqlService;
     private readonly ISecurityGroupService _securityGroupService;
 
-    public SecurityGroupController(IAppCollectionService appCollectionService, ILoggerService loggerService, ISqlService sqlService, ISecurityGroupService securityGroupService)
+    public SecurityGroupsController(IAppCollectionService appCollectionService, ILoggerService loggerService, ISqlService sqlService, ISecurityGroupService securityGroupService)
     {
         _appCollectionService = appCollectionService;
         _loggerService = loggerService;
@@ -21,7 +21,15 @@ public class SecurityGroupController : Controller
     [Route("LoadSecurityGroups")]
     public async Task<IActionResult> LoadSecurityGroups()
     {
-        var securityGroups = await _appCollectionService.GetSecurityGroups();
-        return PartialView("_SecurityGroups", securityGroups);
+        try
+        {
+            var securityGroups = await _appCollectionService.GetSecurityGroups();
+            return PartialView("_SecurityGroups", securityGroups);
+        }
+        catch (Exception ex)
+        {
+            _loggerService.RecordException(ex, nameof(LoadSecurityGroups), "Error occurred while loading security groups.");
+            return StatusCode(500, "Internal server error");
+        }
     }
 }

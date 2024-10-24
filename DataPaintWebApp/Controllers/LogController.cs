@@ -1,4 +1,5 @@
-﻿using DataPaintLibrary.Services.Interfaces;
+﻿using DataPaintLibrary.Services.Classes;
+using DataPaintLibrary.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 [Route("Log")]
@@ -6,16 +7,16 @@ public class LogController : Controller
 {
     private readonly ILoggerService _loggerService;
 
-    public LogController(ILoggerService logService)
+    public LogController(ILoggerService loggerService)
     {
-        _loggerService = logService;
+        _loggerService = loggerService;
     }
 
     [HttpGet]
-    [Route("")]
-    public IActionResult Index()
+    [Route("LoadLogs")]
+    public IActionResult LoadLogs()
     {
         var logs = _loggerService.GetLogs();
-        return View(logs);
+        return PartialView("_Logs", logs);
     }
 }

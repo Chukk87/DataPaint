@@ -4,6 +4,9 @@
 
 <h1>Manage Security Groups</h1>
 
+<p>The security groups control the access of an orientation process, giving assigned users to run/modify orientations depending on their access. 
+    The Orientation schedule has complete control and will ignore security groups if scheduled to run on the orientation service</p>
+
 <div class="row">
     <!-- Select Security Group -->
     <div class="col-md-6">
@@ -27,7 +30,7 @@
 
 <hr />
 
-@* <!-- Security Type Radio Buttons -->
+<!-- Security Type Radio Buttons -->
 <div class="row">
     <div class="col-md-6">
         <label>Security Type:</label><br />
@@ -62,7 +65,7 @@
         <label for="addAdminDropdown">Add Admin:</label>
         <select id="addAdminDropdown" class="form-control">
             <option value="">--Select Admin--</option>
-            <!-- Populate with available admins -->
+            <!-- available admins -->
         </select>
 
         <button class="btn btn-primary mt-2" onclick="addAdmin()">Add Admin</button>
@@ -75,7 +78,7 @@
         <label for="addUserDropdown">Add User:</label>
         <select id="addUserDropdown" class="form-control">
             <option value="">--Select User--</option>
-            <!-- Populate with available users -->
+            <!-- available users -->
         </select>
 
         <button class="btn btn-primary mt-2" onclick="addUser()">Add User</button>
@@ -98,25 +101,22 @@
 </div>
 
 <script>
-    // JavaScript functions to handle creating, updating, and deleting groups
+    // JavaScript
     function createSecurityGroup() {
-        // Implement create logic
+        //logic
     }
 
     function updateSecurityGroup() {
-        // Implement update logic
+        //logic
     }
 
     function deleteSecurityGroup() {
-        // Implement delete logic
+        //logic
     }
 
     function addAdmin() {
-        // Add selected admin to the list
     }
 
     function addUser() {
-        // Add selected user to the list
     }
 </script>
- *@
