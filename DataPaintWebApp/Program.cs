@@ -1,11 +1,15 @@
 using DataPaintLibrary.Services.Classes;
 using DataPaintLibrary.Services.Interfaces;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSingleton<IAppCacheService, AppCacheService>();
 builder.Services.AddSingleton<ILoggerService, LoggerService>();
 builder.Services.AddSingleton<ISqlService, SqlService>();
 builder.Services.AddSingleton<IAppCollectionService, AppCollectionService>();

@@ -66,3 +66,16 @@ textarea {
         color: #a9a9a9; /* ButtonShadow color */
         border-color: #a9a9a9; /* Optional border color */
     }
+
+/* Apply color to table text */
+table, table th, table td {
+    color: #a9a9a9;
+}
+
+    table th {
+        color: #a9a9a9;
+    }
+
+.tab {
+    margin-left: 40px; /* Adjust the value for the desired spacing */
+}

@@ -1,6 +1,6 @@
 ﻿@using DataPaintLibrary.Classes
 @using DataPaintLibrary.Classes.Input
-@model List<SecurityGroup>
+@model List<SecurityGroup> 
 
 <h1>Manage Security Groups</h1>
 
@@ -10,8 +10,8 @@
 <div class="row">
     <!-- Select Security Group -->
     <div class="col-md-6">
-        <label for="securityGroupSelect">Select Security Group:</label>
-        <select id="securityGroupSelect" class="form-control">
+        <label for="securityGroupSelect"><b>Select Security Group:</b></label>
+        <select id="securityGroupSelect" class="form-control" onchange="loadGroupDetails(this.value)">
             <option value="">--Select a Group--</option>
             @foreach (var group in Model)
             {
@@ -19,9 +19,9 @@
             }
         </select>
     </div>
-
     <!-- Visible to All Checkbox -->
     <div class="col-md-6">
+        <label><b>Visibility Type</b></label><br />
         <label>
             <input type="checkbox" id="visibleToAll" /> Visible to All
         </label>
@@ -31,25 +31,35 @@
 <hr />
 
 <!-- Security Type Radio Buttons -->
+@{
+    var securityType = ViewBag.SecurityType ?? "NoSecurity"; // Default to "NoSecurity" if not set
+}
+
 <div class="row">
     <div class="col-md-6">
-        <label>Security Type:</label><br />
+        <label><b>Security Type:</b></label><br />
         <label>
-            <input type="radio" name="securityType" value="NoSecurity" /> No Security
-        </label><br />
+            <input type="radio" name="securityType" value="None" /> None<span class="tab"></span>
+        </label>
         <label>
-            <input type="radio" name="securityType" value="GroupUserOnly" /> Group User Run Only
+            <input type="radio" name="securityType" value="GroupOnly" /> Group Only<span class="tab"></span>
         </label>
     </div>
 
     <!-- Authorization Type Radio Buttons -->
     <div class="col-md-6">
-        <label>Authorization Type:</label><br />
+        <label><b>Authorization Type:</b></label><br />
         <label>
-            <input type="radio" name="authorizationType" value="Type1" /> Authorization Type 1
-        </label><br />
+            <input type="radio" name="authorizationType" value="AdminAndUser" /> Admin and User<span class="tab"></span>
+        </label>
         <label>
-            <input type="radio" name="authorizationType" value="Type2" /> Authorization Type 2
+            <input type="radio" name="authorizationType" value="Admin" /> Admin<span class="tab"></span>
+        </label>
+        <label>
+            <input type="radio" name="authorizationType" value="Any" /> Any<span class="tab"></span>
+        </label>
+        <label>
+            <input type="radio" name="authorizationType" value="None" /> None<span class="tab"></span>
         </label>
     </div>
 </div>
@@ -59,26 +69,32 @@
 <!-- List of Admins and Users -->
 <div class="row">
     <div class="col-md-6">
-        <label for="adminsListBox">Admins:</label>
+        <label for="adminsListBox"><b>Admins:</b></label>
         <select id="adminsListBox" class="form-control" size="8"></select>
 
-        <label for="addAdminDropdown">Add Admin:</label>
+        <label for="addAdminDropdown"><b>Add Admin:</b></label>
         <select id="addAdminDropdown" class="form-control">
             <option value="">--Select Admin--</option>
-            <!-- available admins -->
+            @foreach (var user in ViewBag.Users)
+            {
+                <option value="@user.Id">@user.FullName</option>
+            }
         </select>
 
         <button class="btn btn-primary mt-2" onclick="addAdmin()">Add Admin</button>
     </div>
 
     <div class="col-md-6">
-        <label for="usersListBox">Users:</label>
+        <label for="usersListBox"><b>Users:</b></label>
         <select id="usersListBox" class="form-control" size="8"></select>
 
-        <label for="addUserDropdown">Add User:</label>
+        <label for="addUserDropdown"><b>Add User:</b></label>
         <select id="addUserDropdown" class="form-control">
             <option value="">--Select User--</option>
-            <!-- available users -->
+            @foreach (var user in ViewBag.Users)
+            {
+                <option value="@user.Id">@user.FullName</option>
+            }
         </select>
 
         <button class="btn btn-primary mt-2" onclick="addUser()">Add User</button>
@@ -100,7 +116,167 @@
     </div>
 </div>
 
+<!-------------------->
+<!--AJAX JAVASCRIPTS-->
+<!-------------------->
 <script>
+    //Varibale to control page changes
+    let isChanged = false
+    let activeId = 0;
+
+    //Loads the parameter boxes with data for a specific Security Group; calls neccessary scripts to load
+    //Admin & User Listbox
+    //Security details
+    $(document).ready(function () {
+        $('#securityGroupSelect').change(function ()
+        {
+            if (isChanged) {
+                var confirmation = confirm("You have unsaved changes. Do you want to proceed?");
+                if (!confirmation) {
+                    $(this).val(activeId); // Reset the selection if the user cancels
+                    return;
+                }
+            }
+
+            var groupId = $(this).val();
+            activeId = groupId;
+            if (groupId) {
+                loadBaseUserDetails(groupId);
+                loadAdminUserDetails(groupId);
+                GetSecurityDetails(groupId);
+            }
+            else 
+            {
+                // Clear radio buttons
+                $('input[name="securityType"]').prop("checked", false)
+                $('input[name="authorizationType"]').prop("checked", false);
+                $('#visibleToAll').prop('checked', false);
+                $('#adminsListBox').empty();
+                $('#usersListBox').empty();
+            }
+        });
+    });
+
+    //Adds the base user selection into the User listbox for a specific group
+    function loadBaseUserDetails(groupId) {
+        $.ajax({
+            url: '/SecurityGroups/GetBaseUserDetails/' + groupId,
+            type: 'GET',
+            success: function (group) {
+                if (group && group.Users) {
+                    $('#usersListBox').empty();
+
+                    // Populate Users List Box
+                    $.each(group.Users, function (index, user) {
+                        $('#usersListBox').append($('<option>', {
+                            value: user.Id,
+                            text: user.FullName
+                        }));
+                    });
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error("Error loading group details: " + error);
+            }
+        });
+    }
+
+    //Adds the admin user selection into the Admin listbox for a specific group
+    function loadAdminUserDetails(groupId) {
+        $.ajax({
+            url: '/SecurityGroups/GetAdminUserDetails/' + groupId,
+            type: 'GET',
+            success: function (group) {
+                if (group && group.length > 0) {
+                    $('#adminsListBox').empty();
+
+                    // Populate Admins List Box
+                    $.each(group, function (index, admin) {
+                        $('#adminsListBox').append($('<option>', {
+                            value: admin.id,
+                            text: admin.fullName
+                        }));
+                    });
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error("Error loading admin details: " + error);
+            }
+        });
+    }
+
+    //Get the security group details
+    function GetSecurityDetails(groupId) {
+        var url = '/SecurityGroups/GetSecurityDetails/' + groupId;
+        $.ajax({
+            url: url,
+            type: 'GET',
+            success: function (data) {
+                if (data) {
+                console.log("SecurityType:", data.SecurityType);
+                console.log("AuthorizationType:", data.AuthorizationType);
+                console.log("VisibleToAll:", data.VisibleToAll);
+
+                $('input[name="securityType"][value="' + data.securityType + '"]').prop("checked", true);
+                $('input[name="authorizationType"][value="' + data.authorizationType + '"]').prop("checked", true);
+                $('#visibleToAll').prop('checked', data.visibleToAll);
+                   alert(JSON.stringify(data));
+                }
+                else
+                {
+
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error("Error loading security group details:", error);
+                console.error("Status:", status);
+                console.error("Response:", xhr.responseText);
+            }
+        });
+    }
+
+    function addToListBox(dropDownName, listBoxName) {
+        var dropdownSelect = $(dropDownName);
+        var selectedId = dropdownSelect.val();
+        var selectedName = dropdownSelect.find('option:selected').text();
+        var exists = false;
+
+        var listBox = $(listBoxName);
+    
+        // Check if the selected ID already exists in the list box
+        listBox.find('option').each(function () {
+        if ($(this).val() === selectedId) {
+            exists = true;
+            return false;
+        }
+        });
+
+        if (!exists) {
+            // Add the new admin/user to the list box
+            listBox.append(new Option(selectedName, selectedId));
+            isChanged = true;
+        } else {
+            alert("This entry is already in the list.");
+        }
+    }
+
+
+    // Populate a specific listbox
+    function populateListBox(listBoxId, items) {
+        var listBox = $(listBoxId);
+        listBox.empty();
+
+        items.forEach(function (item) {
+            listBox.append(new Option(item.Name, item.Id));
+        });
+    }
+
+    // Function to clear a specific listbox
+    function clearListBox(listBoxId) {
+        $(listBoxId).empty();
+    }
+
+
     // JavaScript
     function createSecurityGroup() {
         //logic
@@ -115,8 +291,10 @@
     }
 
     function addAdmin() {
+        addToListBox('#addAdminDropdown', '#adminsListBox');
     }
 
     function addUser() {
+        addToListBox('#addUserDropdown', '#usersListBox');
     }
 </script>
