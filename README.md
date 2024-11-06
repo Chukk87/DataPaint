@@ -12,8 +12,8 @@ The application can either be hosted on an ISS web server or a desktop applicati
 
 ### Dependencies
 
-Built and tested on Windows 10. 
-SQL Database
+*Built and tested on Windows 10. 
+*SQL Database
 
 ### Installing
 
@@ -25,7 +25,7 @@ TBA
 
 ## Help
 
-The application is in the beta stage and funstionality is being design actively.
+The application is in the beta stage and functionality is being design actively.
 
 ## Authors
 
