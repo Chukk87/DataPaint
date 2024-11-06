@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using DataPaintLibrary.Enums;
 using System.Threading.Tasks;
 
 namespace DataPaintLibrary.Services.Interfaces
 {
-    class ILoginService
+    public interface ILoginService
     {
+        Task<AuthenticationType> ValidateUserAsync(string username, string password);
     }
 }

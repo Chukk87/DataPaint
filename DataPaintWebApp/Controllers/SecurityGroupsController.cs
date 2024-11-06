@@ -1,11 +1,13 @@
 ﻿using DataPaintLibrary.Classes.Input;
 using DataPaintLibrary.Services.Classes;
 using DataPaintLibrary.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 
+[Authorize]
 [Route("SecurityGroups")]
 public class SecurityGroupsController : Controller
 {

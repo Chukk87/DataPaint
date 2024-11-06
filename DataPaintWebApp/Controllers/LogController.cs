@@ -1,7 +1,9 @@
 ﻿using DataPaintLibrary.Services.Classes;
 using DataPaintLibrary.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
+[Authorize]
 [Route("Log")]
 public class LogController : Controller
 {

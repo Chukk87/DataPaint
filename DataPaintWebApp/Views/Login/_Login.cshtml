@@ -1,0 +1,22 @@
+﻿@model DataPaintLibrary.Services.Classes.User
+
+@{
+    Layout = "_Layout";
+}
+
+<h2>Login</h2>
+<form method="post" action="@Url.Action("Login", "Login")">
+    <div>
+        <label>Username</label>
+        <input type="text" name="Username" required />
+    </div>
+    <div>
+        <label>Password</label>
+        <input type="password" name="Password" required />
+    </div>
+    <div>
+        <label>Remember Me</label>
+        <input type="checkbox" name="RememberMe" />
+    </div>
+    <button type="submit">Login</button>
+</form>

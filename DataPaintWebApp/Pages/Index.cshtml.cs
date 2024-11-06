@@ -1,9 +1,9 @@
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using DataPaintLibrary.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DataPaintWebApp.Pages
 {
+    [Authorize]
     public class IndexModel : PageModel
     {
         public IndexModel()

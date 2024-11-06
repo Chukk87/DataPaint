@@ -16,6 +16,7 @@ namespace DataPaintLibrary.Services.Interfaces
         Task<DataTable> GetUserSecurity();
         Task<DataTable> GetSqlDataInputTable();
         Task<DataTable> GetSqlSheetInputTable();
+        Task<AuthenticationType> ValidateUserAsync(string username, string password);
         Task CreateOwnerGroup(string name, string contactEmail, string phoneNumber);
         Task CreateOwnerGroup(OwnerGroup ownerGroup);
         Task UpdateOwnerGroup(OwnerGroup ownerGroup);

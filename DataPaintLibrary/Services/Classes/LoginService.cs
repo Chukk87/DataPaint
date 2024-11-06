@@ -1,12 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using DataPaintLibrary.Enums;
+using DataPaintLibrary.Services.Interfaces;
 using System.Threading.Tasks;
 
 namespace DataPaintLibrary.Services.Classes
 {
-    class LoginService
+    public class LoginService : ILoginService
     {
+        private readonly ISqlService _sqlService;        
+
+        public LoginService(ISqlService sqlService) 
+        { 
+            _sqlService = sqlService;
+        }
+
+        public async Task<AuthenticationType> ValidateUserAsync(string username, string password)
+        {
+            //hashpassword here
+
+            //var
+            var loginResponse = await _sqlService.ValidateUserAsync(username, password);
+
+            return loginResponse;
+        }
     }
 }
