@@ -20,7 +20,7 @@ public class GroupOwnersController : Controller
     [Route("LoadGroupOwners")]
     public async Task<IActionResult> LoadGroupOwners()
     {
-        var ownerGroups = await _appCollectionService.GetAllOwnerGroups();
+        var ownerGroups = await _appCollectionService.GetAllOwnerGroupsAsync();
         return PartialView("_GroupOwners", ownerGroups);
     }
 
@@ -28,7 +28,7 @@ public class GroupOwnersController : Controller
     [Route("GetGroupDetails")]
     public async Task<IActionResult> GetGroupDetails(int id)
     {
-        var ownerGroup = await _appCollectionService.GetOwnerGroupById(id); 
+        var ownerGroup = await _appCollectionService.GetOwnerGroupByIdAsync(id); 
 
         if (ownerGroup != null)
         {
@@ -46,7 +46,7 @@ public class GroupOwnersController : Controller
     [Route("AddOwnerGroup")]
     public async Task<IActionResult> CreateOwnerGroup([FromBody] OwnerGroup ownerGroup)
     {
-        await _sqlService.CreateOwnerGroup(ownerGroup);
+        await _sqlService.CreateOwnerGroupAsync(ownerGroup);
         return Json(new { success = true });
     }
 
@@ -56,7 +56,7 @@ public class GroupOwnersController : Controller
     {
         try
         {
-            await _sqlService.UpdateOwnerGroup(ownerGroup);
+            await _sqlService.UpdateOwnerGroupAsync(ownerGroup);
             return Json(new { success = true });
         }
         catch (Exception ex)
@@ -69,7 +69,7 @@ public class GroupOwnersController : Controller
     [Route("DeleteOwnerGroup")]
     public async Task<IActionResult> DeleteOwnerGroup([FromBody] OwnerGroup ownerGroup)
     {
-        await _sqlService.DeleteOwnerGroup(ownerGroup);
+        await _sqlService.DeleteOwnerGroupAsync(ownerGroup);
 
         return Json(new { success = true });
     }

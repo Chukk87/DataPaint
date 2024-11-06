@@ -66,8 +66,8 @@ namespace DataPaintDesktop
 
         private async Task LoadDataAsync()
         {
-            _users = await _appCollectionService.GetAllUsers();
-            _securityGroups = await _appCollectionService.GetSecurityGroups();
+            _users = await _appCollectionService.GetAllUsersAsync();
+            _securityGroups = await _appCollectionService.GetSecurityGroupsAsync();
         }
 
         private void InitializeUIComponents()
@@ -171,7 +171,7 @@ namespace DataPaintDesktop
             var newGroupName = NewSecurityGroupTextbox.Text;
             if (!string.IsNullOrEmpty(newGroupName) && !_securityGroups.Any(sg => sg.GroupName == newGroupName))
             {
-                _sqlService.CreateSecurityGroup(newGroupName);
+                _sqlService.CreateSecurityGroupAsync(newGroupName);
                 ManageSecurityGroups_Load(sender, e); // Refresh the form after creating the group
             }
         }
@@ -186,7 +186,7 @@ namespace DataPaintDesktop
 
             try
             {
-                await _sqlService.UpdateSecurityGroup(_selectedSecurityGroup);  // Update the security group in the database
+                await _sqlService.UpdateSecurityGroupAsync(_selectedSecurityGroup);  // Update the security group in the database
                 MessageBox.Show("Security group changes saved successfully.");
             }
             catch (Exception ex)

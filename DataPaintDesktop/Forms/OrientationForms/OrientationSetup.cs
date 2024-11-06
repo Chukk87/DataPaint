@@ -47,8 +47,8 @@ namespace DataPaintDesktop
 
         public async Task PopulateSecurityGroups()
         {
-            DataTable securityTable = await _sqlService.GetSecurityGroups();
-            DataTable usersTable = await _sqlService.GetUserSecurity();
+            DataTable securityTable = await _sqlService.GetSecurityGroupsAsync();
+            DataTable usersTable = await _sqlService.GetUserSecurityAsync();
 
             _securityGroups = _classBuilderService.BuildSecurityGroups(securityTable, usersTable);
             SecurityGroupComboBox.DataSource = _securityGroups;
@@ -58,7 +58,7 @@ namespace DataPaintDesktop
 
         private async Task PopulateGroupOwners()
         {
-            DataTable ownerGroupsTable = await _sqlService.GetOwnerGroups();
+            DataTable ownerGroupsTable = await _sqlService.GetOwnerGroupsAsync();
 
             _ownersGroup = _classBuilderService.BuildOwnerGroups(ownerGroupsTable);
             GroupOwnerComboBox.DataSource = _ownersGroup;

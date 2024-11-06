@@ -10,6 +10,11 @@ namespace DataPaintLibrary.Services.Interfaces
         /// </summary>
         /// <param name="dataInputs">The list of DataInput objects to process.</param>
         void Run(List<DataInput> dataInputs);
+
+        /// <summary>
+        /// Mocks a run for a specific input sheet
+        /// </summary>
+        /// <param name="mockSheetInput"></param>
         void MockRun(SheetInput mockSheetInput);
     }
 }

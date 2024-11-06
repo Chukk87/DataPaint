@@ -12,19 +12,32 @@ namespace DataPaintLibrary.Services.Interfaces
         /// Gets a list of users
         /// </summary>
         /// <returns></returns>
-        Task<List<User>> GetAllUsers();
+        Task<List<User>> GetAllUsersAsync();
+        
         /// <summary>
         /// Gets a list of owner groups
         /// </summary>
         /// <returns></returns>
-        Task<List<OwnerGroup>> GetAllOwnerGroups();
-        Task<OwnerGroup> GetOwnerGroupById(int id);
-        Task<List<SecurityGroup>> GetSecurityGroups();
+        Task<List<OwnerGroup>> GetAllOwnerGroupsAsync();
+        
+        /// <summary>
+        /// Gets an owner group by Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<OwnerGroup> GetOwnerGroupByIdAsync(int id);
+        
+        /// <summary>
+        /// Gets a list of security groups
+        /// </summary>
+        /// <returns></returns>
+        Task<List<SecurityGroup>> GetSecurityGroupsAsync();
+        
         /// <summary>
         /// Gets a list of all data inputs
         /// </summary>
         /// <returns></returns>
         /// 
-        Task<List<DataInput>> GetAllDataInput();
+        Task<List<DataInput>> GetAllDataInputAsync();
     }
 }
