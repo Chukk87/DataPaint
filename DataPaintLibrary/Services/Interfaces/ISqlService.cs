@@ -9,20 +9,19 @@ namespace DataPaintLibrary.Services.Interfaces
 {
     public interface ISqlService
     {
-        Task<DataTable> GetUsers();
-        Task<DataTable> GetOwnerGroups();
-        Task<DataTable> GetOwnerGroup(int id);
-        Task<DataTable> GetSecurityGroups();
-        Task<DataTable> GetUserSecurity();
-        Task<DataTable> GetSqlDataInputTable();
-        Task<DataTable> GetSqlSheetInputTable();
-        Task<AuthenticationType> ValidateUserAsync(string username, string password);
-        Task CreateOwnerGroup(string name, string contactEmail, string phoneNumber);
-        Task CreateOwnerGroup(OwnerGroup ownerGroup);
-        Task UpdateOwnerGroup(OwnerGroup ownerGroup);
-        Task DeleteOwnerGroup(OwnerGroup ownerGroup);
-        Task CreateSecurityGroup(string securityGroup);
-        Task AddUserToSecurityGroup(Guid securityGroupId, Guid userGroupId, UserType userType);
-        Task UpdateSecurityGroup(SecurityGroup securityGroup);
+        Task<DataTable> GetUsersAsync();
+        Task<DataTable> GetOwnerGroupsAsync();
+        Task<DataTable> GetOwnerGroupAsync(int id);
+        Task<DataTable> GetSecurityGroupsAsync();
+        Task<DataTable> GetUserSecurityAsync();
+        Task<DataTable> GetSqlDataInputTableAsync();
+        Task<DataTable> GetSqlSheetInputTableAsync();
+        Task CreateOwnerGroupAsync(string name, string contactEmail, string phoneNumber);
+        Task CreateOwnerGroupAsync(OwnerGroup ownerGroup);
+        Task UpdateOwnerGroupAsync(OwnerGroup ownerGroup);
+        Task DeleteOwnerGroupAsync(OwnerGroup ownerGroup);
+        Task CreateSecurityGroupAsync(string securityGroup);
+        Task AddUserToSecurityGroupAsync(Guid securityGroupId, Guid userGroupId, UserType userType);
+        Task UpdateSecurityGroupAsync(SecurityGroup securityGroup);
     }
 }

@@ -22,8 +22,14 @@ namespace DataPaintLibrary.Services.Interfaces
         /// <returns>A list of OwnerGroup objects.</returns>
         List<OwnerGroup> BuildOwnerGroups(DataTable table);
 
+        /// <summary>
+        /// Builds a list of security groups from a Security group and User security table
+        /// </summary>
+        /// <param name="securityTable"></param>
+        /// <param name="userSecurity"></param>
+        /// <returns></returns>
         List<SecurityGroup> BuildSecurityGroups(DataTable securityTable, DataTable userSecurity);
-
+        
         /// <summary>
         /// Builds a list of DataInput objects from two DataTables: one for DataInput and one for associated SheetInput.
         /// </summary>

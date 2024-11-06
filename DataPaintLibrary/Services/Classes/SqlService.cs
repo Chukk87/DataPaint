@@ -21,12 +21,12 @@ namespace DataPaintLibrary.Services.Classes
             _loggerService = loggerService;
         }
 
-        public async Task<DataTable> GetUsers()
+        public async Task<DataTable> GetUsersAsync()
         {
             return await ExecuteQueryAsync("App.GetUsers");
         }
 
-        public async Task CreateSecurityGroup(string securityGroup)
+        public async Task CreateSecurityGroupAsync(string securityGroup)
         {
             var parameters = new[]
             {
@@ -40,7 +40,7 @@ namespace DataPaintLibrary.Services.Classes
             await ExecuteNonQueryAsync("App.CreateSecurityGroup", parameters);
         }
 
-        public async Task UpdateSecurityGroup(SecurityGroup securityGroup)
+        public async Task UpdateSecurityGroupAsync(SecurityGroup securityGroup)
         {
             var parameters = new[]
             {
@@ -56,16 +56,16 @@ namespace DataPaintLibrary.Services.Classes
 
             foreach (var adminId in securityGroup.Admins)
             {
-                await AddUserToSecurityGroup(securityGroup.Id, adminId, UserType.Admin);
+                await AddUserToSecurityGroupAsync(securityGroup.Id, adminId, UserType.Admin);
             }
 
             foreach (var userId in securityGroup.Users)
             {
-                await AddUserToSecurityGroup(securityGroup.Id, userId, UserType.User);
+                await AddUserToSecurityGroupAsync(securityGroup.Id, userId, UserType.User);
             }
         }
 
-        public async Task AddUserToSecurityGroup(Guid securityGroupId, Guid userGroupId, UserType userType)
+        public async Task AddUserToSecurityGroupAsync(Guid securityGroupId, Guid userGroupId, UserType userType)
         {
             var parameters = new[]
             {
@@ -78,32 +78,32 @@ namespace DataPaintLibrary.Services.Classes
             await ExecuteNonQueryAsync("App.AddUserToSecurityGroup", parameters);
         }
 
-        public async Task<DataTable> GetSecurityGroups()
+        public async Task<DataTable> GetSecurityGroupsAsync()
         {
             return await ExecuteQueryAsync("App.GetSecurityGroups");
         }
 
-        public async Task<DataTable> GetUserSecurity()
+        public async Task<DataTable> GetUserSecurityAsync()
         {
             return await ExecuteQueryAsync("App.GetUserSecurity");
         }
 
-        public async Task<DataTable> GetSqlSheetInputTable()
+        public async Task<DataTable> GetSqlSheetInputTableAsync()
         {
             return await ExecuteQueryAsync("GetEmployeesByDepartment", new SqlParameter("@DepartmentId", 1));
         }
 
-        public async Task<DataTable> GetSqlDataInputTable()
+        public async Task<DataTable> GetSqlDataInputTableAsync()
         {
             return await ExecuteQueryAsync("App.GetDataInputTable");
         }
 
-        public async Task<DataTable> GetOwnerGroups()
+        public async Task<DataTable> GetOwnerGroupsAsync()
         {
             return await ExecuteQueryAsync("[App].[GetOwnerGroups]");
         }
 
-        public async Task<DataTable> GetOwnerGroup(int id)
+        public async Task<DataTable> GetOwnerGroupAsync(int id)
         {
             var parameters = new[]
 {
@@ -113,7 +113,7 @@ namespace DataPaintLibrary.Services.Classes
             return await ExecuteQueryAsync("[App].[GetOwnerGroup]", parameters);
         }
 
-        public async Task CreateOwnerGroup(string name, string contactEmail, string phoneNumber)
+        public async Task CreateOwnerGroupAsync(string name, string contactEmail, string phoneNumber)
         {
             var parameters = new[]
             {
@@ -135,7 +135,7 @@ namespace DataPaintLibrary.Services.Classes
             }
         }
 
-        public async Task CreateOwnerGroup(OwnerGroup ownerGroup)
+        public async Task CreateOwnerGroupAsync(OwnerGroup ownerGroup)
         {
             var parameters = new[]
             {
@@ -157,7 +157,7 @@ namespace DataPaintLibrary.Services.Classes
             }
         }
 
-        public async Task UpdateOwnerGroup(OwnerGroup ownerGroup)
+        public async Task UpdateOwnerGroupAsync(OwnerGroup ownerGroup)
         {
             var parameters = new[]
             {
@@ -180,7 +180,7 @@ namespace DataPaintLibrary.Services.Classes
             }
         }
 
-        public async Task DeleteOwnerGroup(OwnerGroup ownerGroup)
+        public async Task DeleteOwnerGroupAsync(OwnerGroup ownerGroup)
         {
             var parameters = new[]
             {

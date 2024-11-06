@@ -33,9 +33,9 @@ public class SecurityGroupsController : Controller
     {
         try
         {
-            ViewBag.Users = await _appCollectionService.GetAllUsers();
+            ViewBag.Users = await _appCollectionService.GetAllUsersAsync();
 
-            _appCacheService.AddSecurityGroup(await _appCollectionService.GetSecurityGroups());
+            _appCacheService.AddSecurityGroup(await _appCollectionService.GetSecurityGroupsAsync());
             return PartialView("_SecurityGroups", _appCacheService.GetSecurityGroups());
         }
         catch (Exception ex)
@@ -50,7 +50,7 @@ public class SecurityGroupsController : Controller
     public async Task<IActionResult> GetBaseUserDetails(Guid groupId)
     {
         var group = _appCacheService.GetSecurityGroups().Find(x => x.Id == groupId);
-        var users = _securityGroupService.GetUsersForSecurityGroup(group, await _appCollectionService.GetAllUsers());
+        var users = _securityGroupService.GetUsersForSecurityGroup(group, await _appCollectionService.GetAllUsersAsync());
 
         var result = users.Select(user => new { user.Id, FullName = user.FullName }).ToList();
 
@@ -62,7 +62,7 @@ public class SecurityGroupsController : Controller
     public async Task<IActionResult> GetAdminUserDetails(Guid groupId)
     {
         var group = _appCacheService.GetSecurityGroups().Find(x => x.Id == groupId);
-        var adminUsers = _securityGroupService.GetAdminUsersForSecurityGroup(group, await _appCollectionService.GetAllUsers());
+        var adminUsers = _securityGroupService.GetAdminUsersForSecurityGroup(group, await _appCollectionService.GetAllUsersAsync());
 
         var result = adminUsers.Select(admin => new { admin.Id, FullName = admin.FullName }).ToList();
 
