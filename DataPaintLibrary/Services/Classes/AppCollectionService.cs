@@ -27,9 +27,9 @@ namespace DataPaintLibrary.Services.Classes
         /// Retrieves all users from the data source
         /// </summary>
         /// <returns></returns>
-        public async Task<List<User>> GetAllUsers()
+        public async Task<List<User>> GetAllUsersAsync()
         {
-            var users = await _sqlService.GetUsers();
+            var users = await _sqlService.GetUsersAsync();
             _users = _classBuilderService.BuildUserList(users);
 
             return _users;
@@ -39,26 +39,26 @@ namespace DataPaintLibrary.Services.Classes
         /// Retrieves all owner groups from the data source.
         /// </summary>
         /// <returns>A list of OwnerGroup objects.</returns>
-        public async Task<List<OwnerGroup>> GetAllOwnerGroups()
+        public async Task<List<OwnerGroup>> GetAllOwnerGroupsAsync()
         {
-            var ownerGroupsTable = await _sqlService.GetOwnerGroups();
+            var ownerGroupsTable = await _sqlService.GetOwnerGroupsAsync();
             _ownerGroups = _classBuilderService.BuildOwnerGroups(ownerGroupsTable);
 
             return _ownerGroups;
         }
 
-        public async Task<OwnerGroup> GetOwnerGroupById(int id)
+        public async Task<OwnerGroup> GetOwnerGroupByIdAsync(int id)
         {
-            var ownerGroupTable = await _sqlService.GetOwnerGroup(id);
+            var ownerGroupTable = await _sqlService.GetOwnerGroupAsync(id);
             var _ownerGroup = _classBuilderService.BuildOwnerGroups(ownerGroupTable).FirstOrDefault();
 
             return _ownerGroup;
         }
 
-        public async Task<List<SecurityGroup>> GetSecurityGroups()
+        public async Task<List<SecurityGroup>> GetSecurityGroupsAsync()
         {
-            var securityGroupsTable = await _sqlService.GetSecurityGroups();
-            var userSecurityTable = await _sqlService.GetUserSecurity();
+            var securityGroupsTable = await _sqlService.GetSecurityGroupsAsync();
+            var userSecurityTable = await _sqlService.GetUserSecurityAsync();
 
             _securityGroups = _classBuilderService.BuildSecurityGroups(securityGroupsTable, userSecurityTable);
 
@@ -69,10 +69,10 @@ namespace DataPaintLibrary.Services.Classes
         /// Retrieves all data inputs from the data source.
         /// </summary>
         /// <returns>A list of DataInput objects.</returns>
-        public async Task<List<DataInput>> GetAllDataInput()
+        public async Task<List<DataInput>> GetAllDataInputAsync()
         {
-            var dataInputList = await _sqlService.GetSqlDataInputTable();
-            var sheetInputList = await _sqlService.GetSqlSheetInputTable();
+            var dataInputList = await _sqlService.GetSqlDataInputTableAsync();
+            var sheetInputList = await _sqlService.GetSqlSheetInputTableAsync();
 
             _dataInputs = _classBuilderService.BuildDataInputs(dataInputList, sheetInputList);
 

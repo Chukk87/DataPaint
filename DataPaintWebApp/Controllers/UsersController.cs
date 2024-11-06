@@ -19,7 +19,7 @@ public class UsersController : Controller
     {
         try
         {
-            var users = await _appCollectionService.GetAllUsers();
+            var users = await _appCollectionService.GetAllUsersAsync();
             if (users == null)
             {
                 return NotFound();

@@ -36,18 +36,18 @@ namespace DataPaintLibrary.Services.Classes
             return adminUsers;
         }
 
-        public async Task AddAdminToSecurityGroup(SecurityGroup securityGroup, User user)
+        public async Task AddAdminToSecurityGroupAsync(SecurityGroup securityGroup, User user)
         {
             if(!securityGroup.Admins.Contains(user.Id))
             {
-                await _sqlService.AddUserToSecurityGroup(securityGroup.Id, user.Id, UserType.Admin);
+                await _sqlService.AddUserToSecurityGroupAsync(securityGroup.Id, user.Id, UserType.Admin);
             }
         }
-        public async Task AddUserToSecurityGroup(SecurityGroup securityGroup, User user)
+        public async Task AddUserToSecurityGroupAsync(SecurityGroup securityGroup, User user)
         {
             if (!securityGroup.Users.Contains(user.Id))
             {
-                await _sqlService.AddUserToSecurityGroup(securityGroup.Id, user.Id, UserType.User);
+                await _sqlService.AddUserToSecurityGroupAsync(securityGroup.Id, user.Id, UserType.User);
             }
         }
     }
