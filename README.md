@@ -12,8 +12,8 @@ The application can either be hosted on an ISS web server or a desktop applicati
 
 ### Dependencies
 
-*Built and tested on Windows 10. 
-*SQL Database
+* Built and tested on Windows 10. 
+* SQL Database
 
 ### Installing
 
@@ -29,8 +29,7 @@ The application is in the beta stage and functionality is being design actively.
 
 ## Authors
 
-Craig Norris
-CraigNorris87@me.com
+Craig Norris - CraigNorris87@me.com
 
 ## Version History
 
@@ -41,7 +40,7 @@ CraigNorris87@me.com
 
 ## License
 
-This project is licensed under the Craig Norris
+This project is licensed under Craig Norris
 
 ## Acknowledgments
 
