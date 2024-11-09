@@ -2,7 +2,7 @@
     @Username NVARCHAR(50),
     @Password NVARCHAR(100),
     @ReturnCode INT OUTPUT,
-    @IsAdmin BIT OUTPUT
+	@IsAdmin BIT OUTPUT
 AS
 BEGIN
     SET NOCOUNT ON;
@@ -16,7 +16,7 @@ BEGIN
         @StoredPassword = [Password],
         @LoginAttempts = [LoginAttempts],
         @Locked = [Locked],
-        @IsAdmin = [IsAdmin]
+		@IsAdmin = [IsAdmin]
     FROM [App].[User]
     WHERE [Username] = @Username;
 
@@ -24,6 +24,7 @@ BEGIN
     IF @StoredPassword IS NULL
     BEGIN
         SET @ReturnCode = 1; -- Unknown
+		SET @IsAdmin = 0;
         RETURN;
     END
 
@@ -31,6 +32,7 @@ BEGIN
     IF @Locked = 1
     BEGIN
         SET @ReturnCode = 3; -- Locked
+		SET @IsAdmin = 0;
         RETURN;
     END
 
@@ -62,5 +64,6 @@ BEGIN
             WHERE [Username] = @Username;
 
             SET @ReturnCode = 2; -- IncorrectPassword
+			SET @IsAdmin = 0;
     END
 END;

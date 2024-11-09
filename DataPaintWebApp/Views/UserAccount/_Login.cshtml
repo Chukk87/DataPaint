@@ -1,5 +1,6 @@
 ﻿@model DataPaintLibrary.Services.Classes.User
 
+
 @{
     Layout = "_Layout";
 }
@@ -18,6 +19,19 @@
                 <label>Password</label>
                 <input type="password" name="Password" class="form-control form-control-sm" required />
             </div>
+            @if (TempData["Status"]?.ToString() == "Unknown")
+            {
+                <p>Unknown User entered, please enter a valid Username</p>
+            }
+            @if (TempData["Status"]?.ToString() == "IncorrectPassword")
+            {
+                <p>Password incorrect, you have 3 maximum attempts before your account will lock</p>
+            }
+            @if (TempData["Status"]?.ToString() == "Locked")
+            {
+                <p>Your account has been locked, please contact your Data Paint Administrator</p>
+            }
+
             <div class="mb-3 d-flex align-items-center">
                 <input type="checkbox" name="RememberMe" class="form-check-input me-2" />
                 <label class="form-check-label mb-0">Remember Me</label>

@@ -43,7 +43,6 @@ namespace DataPaintWebApp.Controllers
             if (ModelState.IsValid)
             {
                 
-                // Replace with your actual authentication logic
                 var authenticationResult = await _loginService.ValidateUserAsync(model.Username, model.Password);
 
                 if (authenticationResult.AuthenticationType == AuthenticationType.Valid)
@@ -65,7 +64,6 @@ namespace DataPaintWebApp.Controllers
                     var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                     var principal = new ClaimsPrincipal(identity);
 
-                    // Set up cookie options for "Remember Me" functionality
                     var authProperties = new AuthenticationProperties
                     {
                         IsPersistent = model.RememberMe
@@ -73,20 +71,21 @@ namespace DataPaintWebApp.Controllers
 
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, authProperties);
 
-                    return RedirectToAction("Index", "Home"); // Redirect to home or other page
+                    return RedirectToAction("Index", "Home");
+
                 }
                 else
                 {
-                    switch(authenticationResult.AuthenticationType)
+                    switch (authenticationResult.AuthenticationType)
                     {
                         case AuthenticationType.Unknown:
-                            ModelState.AddModelError(string.Empty, "Unknown User");
+                            TempData["Status"] = "Unknown";
                             break;
                         case AuthenticationType.IncorrectPassword:
-                            ModelState.AddModelError(string.Empty, "Incorrect Password");
+                            TempData["Status"] = "IncorrectPassword";
                             break;
                         case AuthenticationType.Locked:
-                            ModelState.AddModelError(string.Empty, "Locked Account");
+                            TempData["Status"] = "Locked";
                             break;
                     }
                 }
