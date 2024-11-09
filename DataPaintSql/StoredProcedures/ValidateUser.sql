@@ -1,7 +1,8 @@
 ﻿CREATE PROCEDURE [App].[ValidateUser]
     @Username NVARCHAR(50),
     @Password NVARCHAR(100),
-    @ReturnCode INT OUTPUT
+    @ReturnCode INT OUTPUT,
+    @IsAdmin BIT OUTPUT
 AS
 BEGIN
     SET NOCOUNT ON;
@@ -14,7 +15,8 @@ BEGIN
     SELECT 
         @StoredPassword = [Password],
         @LoginAttempts = [LoginAttempts],
-        @Locked = [Locked]
+        @Locked = [Locked],
+        @IsAdmin = [IsAdmin]
     FROM [App].[User]
     WHERE [Username] = @Username;
 

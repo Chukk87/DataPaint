@@ -1,0 +1,28 @@
+﻿@model DataPaintLibrary.Services.Classes.User
+
+@{
+    Layout = "_Layout";
+}
+
+<h2>Login to Data Paint</h2>
+<p>Welcome to Data Paint, to continue log into your account. If you do not have an account contact your Data Paint Administrator</p>
+
+<div class="container d-flex justify-content-center">
+    <div class="login-box p-4 border rounded">
+        <form method="post" action="@Url.Action("LoginUser", "UserAccount")" class="text-center">
+            <div class="mb-3">
+                <label>Username</label>
+                <input type="text" name="Username" class="form-control form-control-sm" required />
+            </div>
+            <div class="mb-3">
+                <label>Password</label>
+                <input type="password" name="Password" class="form-control form-control-sm" required />
+            </div>
+            <div class="mb-3 d-flex align-items-center">
+                <input type="checkbox" name="RememberMe" class="form-check-input me-2" />
+                <label class="form-check-label mb-0">Remember Me</label>
+            </div>
+            <button type="submit" class="btn btn-success">Login</button>
+        </form>
+    </div>
+</div>  

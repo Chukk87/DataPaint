@@ -26,8 +26,8 @@ builder.Services.AddSingleton<ISecurityGroupService, SecurityGroupService>();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
                 {
-                    options.LoginPath = "/Login/Login";
-                    options.LogoutPath = "/Login/Logout";
+                    options.LoginPath = "/UserAccount/Login";
+                    options.LogoutPath = "/UserAccount/Logout";
                     options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
                     options.SlidingExpiration = true;
                 });

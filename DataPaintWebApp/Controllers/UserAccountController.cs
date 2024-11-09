@@ -11,16 +11,17 @@ using DataPaintLibrary.Services.Classes;
 
 namespace DataPaintWebApp.Controllers
 {
-    [Route("Login")]
-    public class LoginController : Controller
+    [Route("UserAccount")]
+    public class UserAccountController : Controller
     {
         private ILoginService _loginService;
 
-        public LoginController(ILoginService loginService)
+        public UserAccountController(ILoginService loginService)
         {
             _loginService = loginService;
         }
 
+        [Route("Login")]
         [HttpGet]
         public IActionResult Login()
         {
@@ -32,11 +33,12 @@ namespace DataPaintWebApp.Controllers
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return RedirectToAction("Login", "Login");
+            return RedirectToAction("Login", "UserAccount");
         }
 
+        [Route("LoginUser")]
         [HttpPost]
-        public async Task<IActionResult> Login(LoginViewModel model)
+        public async Task<IActionResult> LoginUser(LoginViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -44,12 +46,21 @@ namespace DataPaintWebApp.Controllers
                 // Replace with your actual authentication logic
                 var authenticationResult = await _loginService.ValidateUserAsync(model.Username, model.Password);
 
-                if (authenticationResult == AuthenticationType.Valid)
+                if (authenticationResult.AuthenticationType == AuthenticationType.Valid)
                 {
                     var claims = new List<Claim>
                     {
                         new Claim(ClaimTypes.Name, model.Username)
                     };
+
+                    if(authenticationResult.IsAdmin)
+                    {
+                        claims.Add(new Claim(ClaimTypes.Role, "Admin"));
+                    }
+                    else
+                    {
+                        claims.Add(new Claim(ClaimTypes.Role, "User"));
+                    }
 
                     var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                     var principal = new ClaimsPrincipal(identity);
@@ -66,7 +77,7 @@ namespace DataPaintWebApp.Controllers
                 }
                 else
                 {
-                    switch(authenticationResult)
+                    switch(authenticationResult.AuthenticationType)
                     {
                         case AuthenticationType.Unknown:
                             ModelState.AddModelError(string.Empty, "Unknown User");

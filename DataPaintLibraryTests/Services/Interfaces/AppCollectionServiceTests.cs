@@ -35,16 +35,16 @@ namespace DataPaintLibraryTests.Services.Interfaces
                 new OwnerGroup(2, "Group B", "group2@example.com", "0987654321")
             };
 
-            _mockSqlService.Setup(x => x.GetOwnerGroups())
+            _mockSqlService.Setup(x => x.GetOwnerGroupsAsync())
                 .ReturnsAsync(ownerGroupsTable);
             _mockClassBuilderService.Setup(x => x.BuildOwnerGroups(ownerGroupsTable))
                 .Returns(expectedOwnerGroups);
 
             // Act
-            var result = await _appCollectionService.GetAllOwnerGroups();
+            var result = await _appCollectionService.GetAllOwnerGroupsAsync();
 
             // Assert
-            _mockSqlService.Verify(x => x.GetOwnerGroups(), Times.Once);
+            _mockSqlService.Verify(x => x.GetOwnerGroupsAsync(), Times.Once);
             _mockClassBuilderService.Verify(x => x.BuildOwnerGroups(ownerGroupsTable), Times.Once);
             Assert.Equal(expectedOwnerGroups, result);
         }
@@ -61,19 +61,19 @@ namespace DataPaintLibraryTests.Services.Interfaces
                 new DataInput(2, "Data Input 2", 2, ExtractionType.CSV, DataType.Static, "Location2.csv")
             };
 
-            _mockSqlService.Setup(x => x.GetSqlDataInputTable())
+            _mockSqlService.Setup(x => x.GetSqlDataInputTableAsync())
                 .ReturnsAsync(dataInputTable);
-            _mockSqlService.Setup(x => x.GetSqlSheetInputTable())
+            _mockSqlService.Setup(x => x.GetSqlSheetInputTableAsync())
                 .ReturnsAsync(sheetInputTable);
             _mockClassBuilderService.Setup(x => x.BuildDataInputs(dataInputTable, sheetInputTable))
                 .Returns(expectedDataInputs);
 
             // Act
-            var result = await _appCollectionService.GetAllDataInput();
+            var result = await _appCollectionService.GetAllDataInputAsync();
 
             // Assert
-            _mockSqlService.Verify(x => x.GetSqlDataInputTable(), Times.Once);
-            _mockSqlService.Verify(x => x.GetSqlSheetInputTable(), Times.Once);
+            _mockSqlService.Verify(x => x.GetSqlDataInputTableAsync(), Times.Once);
+            _mockSqlService.Verify(x => x.GetSqlSheetInputTableAsync(), Times.Once);
             _mockClassBuilderService.Verify(x => x.BuildDataInputs(dataInputTable, sheetInputTable), Times.Once);
             Assert.Equal(expectedDataInputs, result);
         }

@@ -33,7 +33,7 @@ namespace DataPaintDesktop
         {
             try
             {
-                _ownerGroups = await _appCollectionService.GetAllOwnerGroups();
+                _ownerGroups = await _appCollectionService.GetAllOwnerGroupsAsync();
 
                 OwnerGroupListBox.DataSource = _ownerGroups;
                 OwnerGroupListBox.DisplayMember = "Name";

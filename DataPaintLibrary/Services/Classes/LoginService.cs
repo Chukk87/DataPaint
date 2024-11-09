@@ -1,4 +1,5 @@
-﻿using DataPaintLibrary.Enums;
+﻿using DataPaintLibrary.Classes;
+using DataPaintLibrary.Enums;
 using DataPaintLibrary.Services.Interfaces;
 using System.Threading.Tasks;
 
@@ -13,7 +14,7 @@ namespace DataPaintLibrary.Services.Classes
             _sqlService = sqlService;
         }
 
-        public async Task<AuthenticationType> ValidateUserAsync(string username, string password)
+        public async Task<UserAuthenticationDetail> ValidateUserAsync(string username, string password)
         {
             //hashpassword here
 

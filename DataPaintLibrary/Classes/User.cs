@@ -9,6 +9,7 @@ namespace DataPaintLibrary.Services.Classes
         public string FirstName { get; set; }
         public string Surname { get; set; }
         public string Email { get; set; }
+        public bool IsAdmin { get; set; }
 
         /// <summary>
         /// Used when creating a new user

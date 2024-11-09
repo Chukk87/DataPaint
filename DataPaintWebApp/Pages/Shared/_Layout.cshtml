@@ -43,7 +43,7 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdownManagement">
                                 <li>
-                                    <form method="post" action="/Login/Logout" style="display: inline;">
+                                    <form method="post" action="/UserAccount/Logout" style="display: inline;">
                                         <button type="submit" class="dropdown-item">
                                             Logout
                                         </button>
@@ -68,6 +68,12 @@
                                 <li><a class="dropdown-item" onclick="loadLogs()">Application Logs</a></li>
                             </ul>
                         </li>
+                        @if (User.IsInRole("Admin"))
+                        {
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("AdminDashboard", "Admin")">Admin Dashboard</a>
+                        </li>
+                        }
                     </ul>
                 </div>
             </div>

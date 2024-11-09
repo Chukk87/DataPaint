@@ -23,5 +23,6 @@ namespace DataPaintLibrary.Services.Interfaces
         Task CreateSecurityGroupAsync(string securityGroup);
         Task AddUserToSecurityGroupAsync(Guid securityGroupId, Guid userGroupId, UserType userType);
         Task UpdateSecurityGroupAsync(SecurityGroup securityGroup);
+        Task<UserAuthenticationDetail> ValidateUserAsync(string username, string password);
     }
 }
