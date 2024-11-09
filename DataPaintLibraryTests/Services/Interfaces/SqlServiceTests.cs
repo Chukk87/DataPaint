@@ -25,11 +25,11 @@ namespace DataPaintLibraryTests.Services.Interfaces
             mockDataTable.Rows.Add(1, "Owner Group 1");
             mockDataTable.Rows.Add(2, "Owner Group 2");
 
-            _sqlServiceMock.Setup(s => s.GetOwnerGroups())
+            _sqlServiceMock.Setup(s => s.GetOwnerGroupsAsync())
                            .ReturnsAsync(mockDataTable);
 
             // Act
-            var result = await _sqlServiceMock.Object.GetOwnerGroups();
+            var result = await _sqlServiceMock.Object.GetOwnerGroupsAsync();
 
             // Assert
             Assert.NotNull(result);
@@ -47,11 +47,11 @@ namespace DataPaintLibraryTests.Services.Interfaces
             mockDataTable.Rows.Add(1, "Data Input 1");
             mockDataTable.Rows.Add(2, "Data Input 2");
 
-            _sqlServiceMock.Setup(s => s.GetSqlDataInputTable())
+            _sqlServiceMock.Setup(s => s.GetSqlDataInputTableAsync())
                            .ReturnsAsync(mockDataTable);
 
             // Act
-            var result = await _sqlServiceMock.Object.GetSqlDataInputTable();
+            var result = await _sqlServiceMock.Object.GetSqlDataInputTableAsync();
 
             // Assert
             Assert.NotNull(result);
@@ -69,11 +69,11 @@ namespace DataPaintLibraryTests.Services.Interfaces
             mockDataTable.Rows.Add("Sheet 1", 1);
             mockDataTable.Rows.Add("Sheet 2", 2);
 
-            _sqlServiceMock.Setup(s => s.GetSqlSheetInputTable())
+            _sqlServiceMock.Setup(s => s.GetSqlSheetInputTableAsync())
                            .ReturnsAsync(mockDataTable);
 
             // Act
-            var result = await _sqlServiceMock.Object.GetSqlSheetInputTable();
+            var result = await _sqlServiceMock.Object.GetSqlSheetInputTableAsync();
 
             // Assert
             Assert.NotNull(result);

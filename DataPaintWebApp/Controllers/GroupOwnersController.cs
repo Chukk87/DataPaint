@@ -3,7 +3,9 @@ using DataPaintLibrary.Services.Interfaces;
 using DataPaintLibrary.Classes;
 using System.Threading.Tasks;
 using System;
+using Microsoft.AspNetCore.Authorization;
 
+[Authorize]
 [Route("GroupOwners")]
 public class GroupOwnersController : Controller
 {

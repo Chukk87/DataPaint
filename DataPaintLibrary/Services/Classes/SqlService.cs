@@ -200,6 +200,30 @@ namespace DataPaintLibrary.Services.Classes
             }
         }
 
+        public async Task<UserAuthenticationDetail> ValidateUserAsync(string username, string password)
+        {
+            var parameters = new[]
+            {
+                new SqlParameter("@Username", username),
+                new SqlParameter("@Password", password),
+                new SqlParameter("@ReturnCode", SqlDbType.Int) { Direction = ParameterDirection.Output },
+                new SqlParameter("@IsAdmin", SqlDbType.Bit) { Direction = ParameterDirection.Output }
+            };
+
+            await ExecuteNonQueryAsync("App.ValidateUser", parameters);
+
+            int returnCode = (int)parameters[2].Value;
+            bool isAdmin = (bool)parameters[3].Value;
+
+            var userAuthenticationDetail = new UserAuthenticationDetail
+            {
+                AuthenticationType = (AuthenticationType)returnCode,
+                IsAdmin = isAdmin
+            };
+
+            return userAuthenticationDetail;
+        }
+
         private async Task<DataTable> ExecuteQueryAsync(string storedProcedureName, params SqlParameter[] parameters)
         {
             DataTable resultTable = new DataTable();

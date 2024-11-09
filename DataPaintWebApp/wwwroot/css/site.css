@@ -55,6 +55,13 @@ textarea {
     color: #a9a9a9; /* ButtonShadow color */
 }
 
+input[type="password"],
+select,
+textarea {
+    background-color: rgb(56, 56, 56);
+    color: #a9a9a9; /* ButtonShadow color */
+}
+
 .form-control {
     background-color: rgb(56, 56, 56);
     color: #a9a9a9; /* ButtonShadow color */
@@ -78,4 +85,15 @@ table, table th, table td {
 
 .tab {
     margin-left: 40px; /* Adjust the value for the desired spacing */
+}
+
+.login-box {
+    width: 350px; /* Set fixed width for the form */
+    background-color: rgb(56, 56, 56);
+    border: 1px solid #a9a9a9;
+}
+
+.error-message {
+    background-color: rgb(168, 50, 50);
+    color: white;
 }

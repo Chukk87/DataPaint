@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using DataPaintLibrary.Services.Interfaces;
 using System;
-using DataPaintLibrary.Classes;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
+[Authorize]
 public class UsersController : Controller
 {
     private readonly IAppCollectionService _appCollectionService;

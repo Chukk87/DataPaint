@@ -83,5 +83,6 @@
     <Build Include="StoredProcedures\UpdateSecurityGroup.sql" />
     <Build Include="StoredProcedures\GetOwnerGroup.sql" />
     <Build Include="StoredProcedures\UpdateOwnerGroup.sql" />
+    <Build Include="StoredProcedures\ValidateUser.sql" />
   </ItemGroup>
 </Project>

@@ -1,0 +1,46 @@
+﻿@model DataPaintLibrary.Services.Classes.User
+
+
+@{
+    Layout = "_Layout";
+}
+
+<h2>Login to Data Paint</h2>
+<p>Welcome to Data Paint, to continue log into your account. If you do not have an account contact your Data Paint Administrator</p>
+
+<div class="container d-flex justify-content-center">
+    <div class="login-box p-4 border rounded">
+        <form method="post" action="@Url.Action("LoginUser", "UserAccount")" class="text-center">
+            <div class="mb-3">
+                <label>Username</label>
+                <input type="text" name="Username" class="form-control form-control-sm" required />
+            </div>
+            <div class="mb-3">
+                <label>Password</label>
+                <input type="password" name="Password" class="form-control form-control-sm" required />
+            </div>
+
+            <div class="error-message">
+                @if (TempData["Status"]?.ToString() == "Unknown")
+                {
+                    <p><b>Unknown User entered, please enter a valid Username</b></p>
+                }
+                @if (TempData["Status"]?.ToString() == "IncorrectPassword")
+                {
+                    <p><b>Password incorrect, you have 3 maximum attempts before your account will lock</b></p>
+                }
+                @if (TempData["Status"]?.ToString() == "Locked")
+                {
+
+                    <p><b>Your account has been locked, please contact your Data Paint Administrator</b></p>
+                }
+            </div>
+
+            <div class="mb-3 d-flex align-items-center">
+                <input type="checkbox" name="RememberMe" class="form-check-input me-2" />
+                <label class="form-check-label mb-0">Remember Me</label>
+            </div>
+            <button type="submit" class="btn btn-success">Login</button>
+        </form>
+    </div>
+</div>  

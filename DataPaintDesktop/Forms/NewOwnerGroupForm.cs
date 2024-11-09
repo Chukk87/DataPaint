@@ -34,7 +34,7 @@ namespace DataPaintDesktop
 
             try
             {
-                await _sqlService.CreateOwnerGroup(GroupNameTextBox.Text, EmailTextBox.Text, PhoneTextBox.Text);
+                await _sqlService.CreateOwnerGroupAsync(GroupNameTextBox.Text, EmailTextBox.Text, PhoneTextBox.Text);
 
                 MessageBox.Show("Owner group created successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
