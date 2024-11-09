@@ -92,3 +92,8 @@ table, table th, table td {
     background-color: rgb(56, 56, 56);
     border: 1px solid #a9a9a9;
 }
+
+.error-message {
+    background-color: rgb(168, 50, 50);
+    color: white;
+}

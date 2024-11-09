@@ -19,18 +19,22 @@
                 <label>Password</label>
                 <input type="password" name="Password" class="form-control form-control-sm" required />
             </div>
-            @if (TempData["Status"]?.ToString() == "Unknown")
-            {
-                <p>Unknown User entered, please enter a valid Username</p>
-            }
-            @if (TempData["Status"]?.ToString() == "IncorrectPassword")
-            {
-                <p>Password incorrect, you have 3 maximum attempts before your account will lock</p>
-            }
-            @if (TempData["Status"]?.ToString() == "Locked")
-            {
-                <p>Your account has been locked, please contact your Data Paint Administrator</p>
-            }
+
+            <div class="error-message">
+                @if (TempData["Status"]?.ToString() == "Unknown")
+                {
+                    <p><b>Unknown User entered, please enter a valid Username</b></p>
+                }
+                @if (TempData["Status"]?.ToString() == "IncorrectPassword")
+                {
+                    <p><b>Password incorrect, you have 3 maximum attempts before your account will lock</b></p>
+                }
+                @if (TempData["Status"]?.ToString() == "Locked")
+                {
+
+                    <p><b>Your account has been locked, please contact your Data Paint Administrator</b></p>
+                }
+            </div>
 
             <div class="mb-3 d-flex align-items-center">
                 <input type="checkbox" name="RememberMe" class="form-check-input me-2" />
